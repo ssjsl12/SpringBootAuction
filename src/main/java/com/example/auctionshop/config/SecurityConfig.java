@@ -30,13 +30,15 @@ public class SecurityConfig
                );
        http
                .formLogin(config->config.loginPage("/members/login")
-               .defaultSuccessUrl("/")
+               .defaultSuccessUrl("/item/search")
                .usernameParameter("email")
                .failureUrl("/members/login/error")
        )
                .logout(
                        config->config.logoutRequestMatcher(new AntPathRequestMatcher("/members/logout"))
                                .logoutSuccessUrl("/members/login")
+                               .invalidateHttpSession(true) // 세션 무효화
+                               .deleteCookies("JSESSIONID") // 인증 쿠키 삭제
 
        );
 

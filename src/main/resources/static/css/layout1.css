@@ -1,0 +1,202 @@
+html {
+    position: relative;
+    min-height: 100%;
+    margin: 0;
+}
+body {
+    min-height: 100%;
+}
+.footer {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    padding: 15px 0;
+    text-align: center;
+}
+.content{
+    margin-bottom:45%;
+    margin-top: 50px;
+    margin-left: 80%;
+    margin-right: 0;
+    border-left: 2px solid #000; /* 오른쪽에 2px 검은색 선 추가 */
+}
+
+.bodys {
+    display: flex;
+    background-color: #cccccc;
+}
+
+.itemstatus {
+    margin-bottom: 45%;
+    margin-top: 50px;
+    margin-left: 20%;
+    margin-right: 0;
+    border-right: 2px solid #000; /* 오른쪽에 2px 검은색 선 추가 */
+    padding-right: 15px; /* 선과 콘텐츠 사이 간격 */
+}
+
+     /* 배경색 설정 */
+ .back-ground {
+     background-color: black;
+     color: white;
+ }
+
+/* Shop 링크 스타일 */
+.back-ground a {
+    color: white;
+    font-size: 24px;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+/* 네비게이션 리스트 스타일 */
+.items {
+    list-style-type: none;
+    padding: 10px;
+    margin: 20px 0;
+    display: flex;
+    justify-content: space-around;
+    font-size: 18px;
+}
+
+.items li {
+    margin: 0 10px;
+}
+
+/* 링크 색상과 hover 효과 */
+.items a {
+    color: white;
+    text-decoration: none;
+    padding: 5px 10px;
+}
+
+.items a:hover {
+    background-color: #007bff;
+    border-radius: 5px;
+}
+
+/* 검색 폼 스타일 */
+form {
+    justify-content: center;
+    margin-top: 20px;
+}
+
+input[type="search"] {
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    margin-right: 10px;
+    font-size: 16px;
+}
+
+button[type="submit"] {
+    padding: 10px 20px;
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+button[type="submit"]:hover {
+    background-color: #0056b3;
+}
+
+.logout {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    display: inline-block;
+    padding: 5px 10px;
+    background-color: #ff4d4d; /* 빨간색 */
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+
+.logout:hover {
+    background-color: #cc0000; /* 더 진한 빨간색 */
+}
+
+.titles
+{
+    background-color: #333333;
+}
+
+/*
+Search
+*/
+
+.searchForm {
+    position: relative;
+    margin: 20px 0;
+    height: 60px; /* 적절한 높이 설정 */
+}
+
+.searchLabel {
+    position: absolute;
+    top: 15px;
+    left: 30px;
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+}
+
+.searchInputContainer {
+    position: absolute;
+    top: 5px;
+    left: 150px;
+    display: flex;
+    gap: 10px;
+}
+
+.searchInputContainer input {
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 200px;
+}
+
+.searchInputContainer input:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+.searchInputContainer button {
+    padding: 10px 20px;
+    font-size: 14px;
+    font-weight: bold;
+    color: white;
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.searchInputContainer button:hover {
+    background-color: #0056b3;
+}
+
+.userInfo {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    display: flex;
+    gap: 15px;
+    font-size: 14px;
+    color: #555;
+}
+
+.userInfo .userId,
+.userInfo .userCash {
+    font-weight: bold;
+}

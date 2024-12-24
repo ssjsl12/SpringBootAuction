@@ -1,7 +1,9 @@
 package com.example.auctionshop.controller;
 
 import com.example.auctionshop.dto.MemberFormDto;
+import com.example.auctionshop.entity.ItemInventory;
 import com.example.auctionshop.entity.Member;
+import com.example.auctionshop.service.InventoryService;
 import com.example.auctionshop.service.MemberService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -22,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class MemberController {
 
     private final MemberService memberService;
+    private final InventoryService inventoryService;
 
     private final PasswordEncoder passwordEncoder;
 
@@ -44,8 +47,12 @@ public class MemberController {
         try
         {
             Member member = Member.createMember(memberFormDto , passwordEncoder);
+            ItemInventory inventory = ItemInventory.createInventory(member);
 
+            //멤버 저장
             memberService.saveMember(member);
+            //인벤토리 저장
+            inventoryService.saveInventory(inventory);
         }
         catch (IllegalStateException e)
         {
