@@ -6,7 +6,18 @@
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
-<body>
+<div layout:fragment="content">
 
-</body>
+    <aside class="sidebar">
+        <div th:replace="~{search/searchForm :: searchStatus}"></div>
+    </aside>
+
+    <div>
+
+        <p>이민종</p>
+
+    </div>
+
+</div>
+
 </html>
