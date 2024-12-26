@@ -6,33 +6,25 @@ import lombok.Setter;
 import lombok.ToString;
 
 @Entity
-@Table(name = "itemstat")
-@Getter
+@Table(name = "item_img")
 @Setter
+@Getter
 @ToString
-public class ItemStat
-{
+public class ItemImg {
+
     @Id
-    @Column(name = "item_stat_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "item_img_id")
     private Long id;
+
+    private String imgName; // 이미지 파일명
+
+    private String oriImgName; //원본이미지
+    private String imgUrl;
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "item_id")
-    private Item item_id;
-
-    //지능
-    private Long intel;
-    //운
-    private Long luck;
-    //회피
-    private Long dex;
-    //힘
-    private Long str;
-    //체력
-    private Long hp;
-    //마나
-    private Long mp;
+    private Item item;
 
 
 }

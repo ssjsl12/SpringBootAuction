@@ -37,4 +37,6 @@ public class Item {
     @JoinColumn(name = "item_inventory_id")
     private ItemInventory inventory;
 
+    private Long price;
+
 }

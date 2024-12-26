@@ -15,6 +15,37 @@
 
     <div class="searchItemForm">
 
+        <div class="pagination">
+            <!-- 이전 페이지 링크 -->
+            <a th:href="@{/item/search/{page}(page=${sellItems.number - 1})}" th:if="${sellItems.hasPrevious()}">&laquo; 이전</a>
+
+            <!-- 현재 페이지 / 총 페이지 수 -->
+            <span class="page-info">
+        <span th:text="${sellItems.number + 1}"></span> /
+        <span th:text="${sellItems.totalPages}"></span>
+    </span>
+
+            <!-- 다음 페이지 링크 -->
+            <a th:href="@{/item/search/{page}(page=${sellItems.number + 1})}" th:if="${sellItems.hasNext()}">다음 &raquo;</a>
+        </div>
+
+        <table class = "searchTable">
+            <thead>
+            <tr>
+                <th>아이템 이름</th>
+                <th>가격</th>
+                <th>개수</th>
+            </tr>
+            </thead>
+            <tbody>
+            <!-- sellItems 리스트를 반복문으로 출력 -->
+            <tr th:each="item : ${sellItems}">
+                <td th:text="${item.name}">아이템 이름</td>
+                <td th:text="${item.price}">가격</td>
+                <td th:text="${item.stock_number}"></td>
+            </tr>
+            </tbody>
+        </table>
 
 
     </div>
