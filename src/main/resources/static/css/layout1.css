@@ -206,3 +206,39 @@ Search
 .userInfo .userCash {
     font-weight: bold;
 }
+
+.layer {
+    display: none;
+    width: 100%;
+    height: 0;
+    opacity: 0;
+    background-color: #333333;
+    overflow: hidden; /* 내용이 넘치지 않도록 */
+    transition: height 0.5s ease, opacity 0.5s ease;
+}
+
+.layer.open {
+
+    height: 500px; /* 원하는 높이로 설정 */
+    opacity: 1;
+}
+
+.layer.close {
+    height: 0;
+    opacity: 0;
+}
+
+/* 버튼 스타일 */
+.toggleButton {
+    width: 100%;
+    height: 15%;
+    background-color: #007bff;
+    border: none;
+    cursor: pointer;
+}
+
+.toggleButton:focus
+{
+    outline: 0;
+}
+

@@ -12,10 +12,139 @@
   </style>
 </th:block>
 
+
+
+
 <div th:fragment="searchStatus">
 
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      //레이어
+      const layer = document.getElementById("layer");
 
-  <form class="form-inline">
+      function toggleLayer() {
+        // 열려 있는 경우 닫기
+        if (layer.classList.contains("open")) {
+          layer.classList.remove("open");
+          layer.classList.add("close");
+
+          // 닫기 애니메이션 후 display: none 설정
+          setTimeout(() => {
+            if (layer.classList.contains("close")) {
+              layer.style.display = "none";
+              layer.classList.remove("close");
+            }
+          }, 500); // 애니메이션 시간이 끝난 후 닫기
+        } else {
+          // 닫혀 있는 경우 열기
+          layer.style.display = "block";  // 즉시 열기
+          setTimeout(() => {
+            layer.classList.remove("close");
+            layer.classList.add("open");  // 애니메이션 시작
+          }, 10);  // 약간의 딜레이 후 애니메이션 적용
+        }
+      }
+
+      //스테이터스
+      const statuses = ['int', 'str', 'dex', 'luck', 'hp'];
+
+      const tableBody = document.getElementById("status-table-body");
+
+      // for문을 사용하여 동적으로 생성
+      for (let i = 0; i < statuses.length; i++) {
+        const row = document.createElement("tr");
+
+        const statusdiv = document.createElement("div");
+
+        statusdiv.textContent = statuses[i];
+
+        row.appendChild(statusdiv);
+        // 수치 입력 박스 생성
+        const inputCell = document.createElement("td");
+        const input = document.createElement("input");
+        input.type = "number";
+        input.name = statuses[i] + "_value";  // 예시로 status 이름을 넣음
+        input.placeholder = "수치";
+        input.style.width = "60px";
+        input.style.marginLeft = "10px";
+        inputCell.appendChild(input);
+        row.appendChild(inputCell);
+
+        // 트에 추가
+        tableBody.appendChild(row);
+      }
+
+
+      window.toggleLayer = toggleLayer;
+
+      //앤드 오어 조건
+      let selectedCondition = null;
+
+      // AND/OR 버튼 클릭 시 선택과 취소를 처리하는 함수
+      function toggleCondition(condition) {
+        if (selectedCondition === condition) {
+          // 이미 선택된 상태라면 취소
+          selectedCondition = null;
+          document.getElementById("andCondition").checked = false;
+          document.getElementById("orCondition").checked = false;
+        } else {
+          // 새로운 조건을 선택
+          selectedCondition = condition;
+          // 선택된 조건을 체크
+          if (condition === 'AND') {
+            document.getElementById("andCondition").checked = true;
+            document.getElementById("orCondition").checked = false;
+          } else {
+            document.getElementById("orCondition").checked = true;
+            document.getElementById("andCondition").checked = false;
+          }
+        }
+      }
+
+      window.toggleCondition = toggleCondition;
+
+    });
+  </script>
+
+  <button class="toggleButton" onclick="toggleLayer()">장비</button>
+
+  <!-- 레이어 -->
+    <div class="layer" id="layer">
+
+
+
+      <form class="search-form" id="searchForm" action="/item/search" method="post" th:object="${searchFormDto}">
+      <div class="checkbox-group">
+        <!-- AND/OR 라디오 버튼 그룹 -->
+
+        <div>세부 검색</div>
+
+        <div>
+          <label for="searchQuery">빠른 검색:</label>
+          <input type="text" id="searchQuery" name="searchQuery" placeholder="검색어를 입력하세요">
+        </div>
+
+        <div class="button-group">
+          <label>
+            <input type="radio" id="andCondition" name="condition" value="AND" onclick="toggleCondition('AND')">
+            AND
+          </label>
+          <label>
+            <input type="radio" id="orCondition" name="condition" value="OR" onclick="toggleCondition('OR')">
+            OR
+          </label>
+        </div>
+      </div>
+      <table>
+        <tbody id="status-table-body"></tbody>
+      </table>
+
+        <button type="submit">찾기</button>
+
 
   </form>
+
 </div>
+
+</div>
+
