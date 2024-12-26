@@ -29,7 +29,9 @@
             <a th:href="@{/item/search/{page}(page=${sellItems.number + 1})}" th:if="${sellItems.hasNext()}">다음 &raquo;</a>
         </div>
 
-        <table class = "searchTable">
+
+
+        <table class="searchTable">
             <thead>
             <tr>
                 <th>아이템 이름</th>
@@ -38,11 +40,27 @@
             </tr>
             </thead>
             <tbody>
-            <!-- sellItems 리스트를 반복문으로 출력 -->
             <tr th:each="item : ${sellItems}">
-                <td th:text="${item.name}">아이템 이름</td>
+                <td class="hover-item">
+                    <img th:src="@{/img/{img}.png(img=${item.itemImg.imgUrl})}"
+                         alt="Item Image"
+                         style="width: 15px; height: 15px; margin-left: 10px;" />
+                    <span th:text="${item.name}">아이템 이름</span>
+
+                    <!-- 숨겨진 팝업 -->
+                    <div class="popup">
+                        <img th:src="@{/img/{img}.png(img=${item.itemImg.imgUrl})}"
+                             alt="Item Image"
+                             style="width: 100px; height: 100px;" />
+                        <p th:if="${item.itemStat.intel} != null" th:text="'INT: ' + ${item.itemStat.intel}"></p>
+                        <p th:if="${item.itemStat.dex} != null" th:text="'DEX: ' + ${item.itemStat.dex}"></p>
+                        <p th:if="${item.itemStat.str} != null" th:text="'STR: ' + ${item.itemStat.str}"></p>
+                        <p th:if="${item.itemStat.luck} != null" th:text="'LUCK: ' + ${item.itemStat.luck}"></p>
+
+                    </div>
+                </td>
                 <td th:text="${item.price}">가격</td>
-                <td th:text="${item.stock_number}"></td>
+                <td th:text="${item.stock_number}">개수</td>
             </tr>
             </tbody>
         </table>

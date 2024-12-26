@@ -2,6 +2,8 @@ package com.example.auctionshop.service;
 
 import com.example.auctionshop.constant.ItemSellStatus;
 import com.example.auctionshop.entity.Item;
+import com.example.auctionshop.entity.ItemImg;
+import com.example.auctionshop.repository.ItemImgRepository;
 import com.example.auctionshop.repository.ItemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -17,6 +19,8 @@ public class ItemService {
 
     @Autowired
     private  ItemRepository itemRepository;
+    @Autowired
+    private ItemImgRepository itemImgRepository;
 
     public List<Item> findBySellItems(ItemSellStatus status)
     {

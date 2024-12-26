@@ -1,6 +1,6 @@
 package com.example.auctionshop.constant;
 
-public enum ItemSellStatus {
+public enum     ItemSellStatus {
 
     Sell,NotSell,Complete
 

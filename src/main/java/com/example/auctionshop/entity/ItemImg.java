@@ -19,12 +19,5 @@ public class ItemImg {
 
     private String imgName; // 이미지 파일명
 
-    private String oriImgName; //원본이미지
     private String imgUrl;
-
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "item_id")
-    private Item item;
-
-
 }

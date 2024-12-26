@@ -22,6 +22,9 @@ spring:
     multipart:
       max-file-size: 20MB #파일 한개당 최대 사이즈
       max-request-size: 100MB #요청당 최대 파일 사이즈
+  web:
+    resources:
+      static-locations: classpath:/static/
 
 itemImgLocation: c:/shop/item
 uploadPath: file:///C:/shop
@@ -33,5 +36,4 @@ logging:
         type:
           descriptor:
             sql: trace
-
 

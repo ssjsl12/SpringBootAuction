@@ -53,6 +53,7 @@ public class SearchController {
 
 
 
+    //여기는 스테이터스를 받아와서 찾는곳
     @PostMapping("/search/{page}")
     public String optionSearch(@PathVariable int page,
             @Valid StatusFormDto statusFormDto
@@ -79,14 +80,52 @@ public class SearchController {
 
 
 
-    @GetMapping("/price")
-    public String price(Model model)
-    {
-        List<Item> complteItems = itemService.findBySellItems(ItemSellStatus.Complete);
+    @GetMapping("/price/{page}")
+    public String price(@PathVariable int page, Model model) {
+        // 'ItemSellStatus.Sell' 상태에 해당하는 아이템 목록을 가져옵니다.
+        List<Item> sellItems = itemService.findBySellItems(ItemSellStatus.Complete);
 
-        model.addAttribute("complteItems", complteItems);
+        // PageRequest를 사용하여 해당 페이지를 요청 (10개씩 페이지 처리)
+        PageRequest pageRequest = PageRequest.of(page, 12);
 
-        return "item/search";
+        // 페이지네이션 처리
+        Page<Item> sellItemsPage = itemService.getSellItems(pageRequest, sellItems);
+
+        // 모델에 sellItemsPage (Page 객체)를 추가
+        model.addAttribute("sellItems", sellItemsPage);
+
+        // 현재 페이지 번호와 전체 페이지 수를 모델에 추가
+        model.addAttribute("currentPage", sellItemsPage.getNumber());
+        model.addAttribute("totalPages", sellItemsPage.getTotalPages());
+
+        return "item/price"; // 'item/search.html'로 이동
     }
+
+    //여기는 스테이터스를 받아와서 찾는곳
+    @PostMapping("/price/{page}")
+    public String optionCompleteSearch(@PathVariable int page,
+                               @Valid StatusFormDto statusFormDto
+            , BindingResult bindingResult , Model model
+    ) {
+
+        if(bindingResult.hasErrors()) {
+            log.info("error");
+        }
+        List<Item> sellItems = itemService.findBySellItems(ItemSellStatus.Sell);
+
+        // PageRequest를 사용하여 해당 페이지를 요청 (10개씩 페이지 처리)
+        PageRequest pageRequest = PageRequest.of(page, 12);
+
+        // 페이지네이션 처리
+        Page<Item> sellItemsPage = itemService.getSellItems(pageRequest, sellItems);
+
+        // 모델에 sellItemsPage (Page 객체)를 추가
+        model.addAttribute("sellItems", sellItemsPage);
+
+        // 검색 결과를 처리하고, 예를 들어 다른 페이지로 리디렉션
+        return "/item/price"; // 결과 페이지로 리디렉션
+    }
+
+
 
 }

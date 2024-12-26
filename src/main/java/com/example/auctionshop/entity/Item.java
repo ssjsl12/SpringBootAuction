@@ -29,14 +29,20 @@ public class Item {
     //개수
     private Long stock_number;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "item_stat_id")
-    private ItemStat item_stat;
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "item_inventory_id")
     private ItemInventory inventory;
 
     private Long price;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "item_img_id")
+    private ItemImg itemImg;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "item_stat_id")
+    private ItemStat itemStat;
+
+
 
 }

@@ -17,10 +17,6 @@ public class ItemStat
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "item_id")
-    private Item item_id;
-
     //지능
     private Long intel;
     //운

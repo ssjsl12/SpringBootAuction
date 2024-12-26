@@ -6,18 +6,69 @@
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
+
 <div layout:fragment="content">
 
     <aside class="sidebar">
         <div th:replace="~{search/searchForm :: searchStatus}"></div>
     </aside>
 
-    <div>
+    <div class="searchItemForm">
 
-        <p>이민종</p>
+        <div class="pagination">
+            <!-- 이전 페이지 링크 -->
+            <a th:href="@{/item/search/{page}(page=${sellItems.number - 1})}" th:if="${sellItems.hasPrevious()}">&laquo; 이전</a>
+
+            <!-- 현재 페이지 / 총 페이지 수 -->
+            <span class="page-info">
+        <span th:text="${sellItems.number + 1}"></span> /
+        <span th:text="${sellItems.totalPages}"></span>
+    </span>
+
+            <!-- 다음 페이지 링크 -->
+            <a th:href="@{/item/search/{page}(page=${sellItems.number + 1})}" th:if="${sellItems.hasNext()}">다음 &raquo;</a>
+        </div>
+
+
+
+        <table class="searchTable">
+            <thead>
+            <tr>
+                <th>아이템 이름</th>
+                <th>가격</th>
+                <th>개수</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="item : ${sellItems}">
+                <td class="hover-item">
+                    <img th:src="@{/img/{img}.png(img=${item.itemImg.imgUrl})}"
+                         alt="Item Image"
+                         style="width: 15px; height: 15px; margin-left: 10px;" />
+                    <span th:text="${item.name}">아이템 이름</span>
+
+                    <!-- 숨겨진 팝업 -->
+                    <div class="popup">
+                        <img th:src="@{/img/{img}.png(img=${item.itemImg.imgUrl})}"
+                             alt="Item Image"
+                             style="width: 100px; height: 100px;" />
+                        <p th:if="${item.itemStat.intel} != null" th:text="'INT: ' + ${item.itemStat.intel}"></p>
+                        <p th:if="${item.itemStat.dex} != null" th:text="'DEX: ' + ${item.itemStat.dex}"></p>
+                        <p th:if="${item.itemStat.str} != null" th:text="'STR: ' + ${item.itemStat.str}"></p>
+                        <p th:if="${item.itemStat.luck} != null" th:text="'LUCK: ' + ${item.itemStat.luck}"></p>
+
+                    </div>
+                </td>
+                <td th:text="${item.price}">가격</td>
+                <td th:text="${item.stock_number}">개수</td>
+            </tr>
+            </tbody>
+        </table>
+
 
     </div>
 
 </div>
+
 
 </html>

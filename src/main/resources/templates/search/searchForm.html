@@ -49,16 +49,23 @@
       const statuses = ['int', 'str', 'dex', 'luck', 'hp'];
 
       const tableBody = document.getElementById("status-table-body");
-
-      // for문을 사용하여 동적으로 생성
+      tableBody.classList.add("status-table-body");
+// for문을 사용하여 동적으로 생성
       for (let i = 0; i < statuses.length; i++) {
         const row = document.createElement("tr");
 
+        // 셀 콘텐츠를 중간 정렬
+        row.style.textAlign = "center";  // row 내 콘텐츠를 중앙 정렬
+
         const statusdiv = document.createElement("div");
-
         statusdiv.textContent = statuses[i];
+        statusdiv.style.display = "inline-block";  // div를 inline-block으로 설정하여 수평 중앙 정렬을 유지
 
-        row.appendChild(statusdiv);
+        // status 텍스트 추가
+        const statusCell = document.createElement("td");
+        statusCell.appendChild(statusdiv);
+        row.appendChild(statusCell);
+
         // 수치 입력 박스 생성
         const inputCell = document.createElement("td");
         const input = document.createElement("input");
@@ -67,7 +74,9 @@
         input.placeholder = "수치";
         input.style.width = "60px";
         input.style.marginLeft = "10px";
+        input.style.display = "inline-block";  // 입력 필드도 inline-block으로 설정
         inputCell.appendChild(input);
+
         row.appendChild(inputCell);
 
         // 트에 추가
@@ -103,6 +112,10 @@
 
       window.toggleCondition = toggleCondition;
 
+      const currentPage = window.location.pathname;
+
+
+      console.log(currentPage);
     });
   </script>
 
@@ -117,29 +130,28 @@
       <div class="checkbox-group">
         <!-- AND/OR 라디오 버튼 그룹 -->
 
-        <div>세부 검색</div>
-
         <div>
-          <label for="searchQuery">빠른 검색:</label>
+          <label class = "search-text" for="searchQuery">빠른 검색:</label>
           <input type="text" id="searchQuery" name="searchQuery" placeholder="검색어를 입력하세요">
         </div>
 
         <div class="button-group">
+          <span class = "search-text">세부 검색</span>
           <label>
             <input type="radio" id="andCondition" name="condition" value="AND" onclick="toggleCondition('AND')">
-            AND
+            <span class = "search-text"> AND</span>
           </label>
           <label>
             <input type="radio" id="orCondition" name="condition" value="OR" onclick="toggleCondition('OR')">
-            OR
+            <span class = "search-text"> OR </span>
           </label>
         </div>
       </div>
-      <table>
+      <table class = "status-table">
         <tbody id="status-table-body"></tbody>
       </table>
 
-        <button type="submit">찾기</button>
+        <button class ="search-button" type="submit">찾기</button>
 
 
   </form>

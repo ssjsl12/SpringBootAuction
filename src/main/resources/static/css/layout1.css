@@ -24,7 +24,7 @@ body {
 }
 
 .sidebar {
-    width: 10%;
+    width: 20%;
     background-color: #f4f4f4;
     box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
     height: 80%;
@@ -40,13 +40,22 @@ body {
 }
 .searchItemForm
 {
-    width: 90%;
+    width: 80%;
     height: 70%;
     position: absolute;
     top:192px;
-    left: 10%;
+    left: 20%;
     background: #555555;
 }
+
+.login-form-content
+{
+    margin-bottom:80%;
+   margin-top: 10%;
+   margin-left: 45%;
+   margin-right: 35%;
+}
+
 
      /* 배경색 설정 */
  .back-ground {
@@ -197,6 +206,28 @@ Search
     background-color: #0056b3;
 }
 
+.status-table-body
+{
+    width: 100%;
+    border-collapse: collapse; /* 테이블 간격 제거 */
+    margin-top: 20px;
+    color: white;
+}
+
+.status-table td
+{
+    width: 100%;
+    border:1px solid #ddd
+}
+
+.status-table-body input {
+    width: 150px !important;  /* !important로 우선순위 높이기 */
+    margin: auto !important;
+    padding: 5px;
+    text-align: center;  /* 입력 값도 중앙 정렬 */
+}
+
+
 .userInfo {
     position: absolute;
     top: 20px;
@@ -224,7 +255,7 @@ Search
 
 .layer.open {
 
-    height: 500px; /* 원하는 높이로 설정 */
+    height: 641.09px; /* 원하는 높이로 설정 */
     opacity: 1;
 }
 
@@ -242,6 +273,17 @@ Search
     cursor: pointer;
 }
 
+.search-text
+{
+     color: white;
+}
+
+.search-button
+{
+    width: 100%;
+    margin: 30px 0;
+}
+
 .toggleButton:focus
 {
     outline: 0;
@@ -253,7 +295,6 @@ searchTable*/
 .searchTable {
     width: 100%;
     border-collapse: collapse; /* 테이블 간격 제거 */
-    margin-top: 20px;
     font-size: 14px;
     color: #333;
 }
@@ -269,12 +310,8 @@ searchTable*/
     font-weight: bold;
 }
 
-.searchTable tr:nth-child(even) {
-    background-color: #f9f9f9; /* 짝수 행 배경색 */
-}
-
 .searchTable tr:hover {
-    background-color: #f0f0f0; /* 마우스 오버 시 배경색 */
+    background-color: #0056b3; /* 마우스 오버 시 배경색 */
 }
 
 .searchTable td {
@@ -290,3 +327,35 @@ searchTable*/
     color: #007bff; /* 링크 호버 색상 */
 }
 
+.hover-item {
+    position: relative;
+    cursor: pointer;
+}
+
+.popup {
+    display: none;
+    position: absolute;
+    top: 20px;
+    left: 0;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    z-index: 10;
+    width: 200px;
+}
+
+.popup img {
+    display: block;
+    margin: 0 auto;
+    margin-bottom: 10px;
+}
+
+.popup p {
+    margin: 5px 0;
+}
+
+.hover-item:hover .popup {
+    display: block;
+}

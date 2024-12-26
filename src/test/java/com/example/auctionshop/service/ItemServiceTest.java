@@ -2,14 +2,8 @@ package com.example.auctionshop.service;
 
 import com.example.auctionshop.constant.ItemSellStatus;
 import com.example.auctionshop.constant.ItemType;
-import com.example.auctionshop.entity.Item;
-import com.example.auctionshop.entity.ItemInventory;
-import com.example.auctionshop.entity.ItemStat;
-import com.example.auctionshop.entity.Member;
-import com.example.auctionshop.repository.InventoryRepository;
-import com.example.auctionshop.repository.ItemRepository;
-import com.example.auctionshop.repository.ItemStatRepository;
-import com.example.auctionshop.repository.MemberRepository;
+import com.example.auctionshop.entity.*;
+import com.example.auctionshop.repository.*;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.junit.jupiter.api.Test;
@@ -39,6 +33,9 @@ class ItemServiceTest {
     @Autowired
     private ItemStatRepository itemStatRepository;
 
+    @Autowired
+    private ItemImgRepository itemImgRepository;
+
     @Commit
     @Test
     public void saveItem()
@@ -58,8 +55,9 @@ class ItemServiceTest {
             item.setStock_number(1L + i);
             item.setType(ItemType.Equip);
             item.setStock_number(1L + i);
-            item.setSellStatus(ItemSellStatus.NotSell);
+            item.setSellStatus(ItemSellStatus.Complete);
             item.setInventory(inventory);
+
 
             ItemStat itemStat = new ItemStat();
             itemStat.setDex(10L);
@@ -67,13 +65,19 @@ class ItemServiceTest {
             itemStat.setStr(3L);
             itemStat.setDex(5L);
             itemStat.setHp(1L);
-            itemStat.setItem_id(item);
+
+            ItemImg itemImg = new ItemImg();
+            itemImg.setImgName("test" + i);
+            itemImg.setImgUrl("test" + i);
+
+            item.setItemStat(itemStat);
+            item.setItemImg(itemImg);
 
             itemStatRepository.save(itemStat);
-
-            item.setItem_stat(itemStat);
-
+            itemImgRepository.save(itemImg);
             itemRepository.save(item);
+
+
         }
 
 
