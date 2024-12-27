@@ -17,12 +17,12 @@ public class SideController {
 
 
     @GetMapping("/searchForm")
-    public String searchForm(Model model)
+    public void searchForm(Model model)
     {
 
         model.addAttribute("searchFormDto" , new StatusFormDto());
 
-        return "search/searchForm";
+
     }
 
 

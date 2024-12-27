@@ -1,6 +1,7 @@
 package com.example.auctionshop.service;
 
 import com.example.auctionshop.constant.ItemSellStatus;
+import com.example.auctionshop.dto.StatusFormDto;
 import com.example.auctionshop.entity.Item;
 import com.example.auctionshop.entity.ItemImg;
 import com.example.auctionshop.repository.ItemImgRepository;
@@ -29,13 +30,33 @@ public class ItemService {
         return items;
     }
 
+    public List<Item> findByStatusWithStatItemAnd(ItemSellStatus status, StatusFormDto formDto)
+    {
+        List<Item> items = itemRepository.findItemsByStatWithAnd(
+                formDto.getInt_value() , formDto.getDex_value() , formDto.getLuck_value()
+        ,formDto.getStr_value(),formDto.getHp_value() , status);
+
+        return items;
+    }
+
+    public List<Item> findByStatusWithStatItemOR(ItemSellStatus status, StatusFormDto formDto)
+    {
+        List<Item> items = itemRepository.findItemsByStatWithOr(
+                formDto.getInt_value() , formDto.getDex_value() , formDto.getLuck_value()
+                ,formDto.getStr_value(),formDto.getHp_value() , status);
+
+        return items;
+    }
+
+
+
+
     public Page<Item> getSellItems(PageRequest pageRequest , List<Item> items) {
         int start = (int) pageRequest.getOffset();
         int end = Math.min((start + pageRequest.getPageSize()), items.size());
         List<Item> pageContent = items.subList(start, end);
         return new PageImpl<>(pageContent, pageRequest, items.size());
     }
-
 
 
 }

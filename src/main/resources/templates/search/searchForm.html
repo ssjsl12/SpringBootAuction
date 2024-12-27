@@ -87,16 +87,13 @@
       window.toggleLayer = toggleLayer;
 
       //앤드 오어 조건
-      let selectedCondition = null;
+      let selectedCondition = 'AND';
+
+      document.getElementById("andCondition").checked = true;
 
       // AND/OR 버튼 클릭 시 선택과 취소를 처리하는 함수
       function toggleCondition(condition) {
-        if (selectedCondition === condition) {
-          // 이미 선택된 상태라면 취소
-          selectedCondition = null;
-          document.getElementById("andCondition").checked = false;
-          document.getElementById("orCondition").checked = false;
-        } else {
+
           // 새로운 조건을 선택
           selectedCondition = condition;
           // 선택된 조건을 체크
@@ -106,7 +103,7 @@
           } else {
             document.getElementById("orCondition").checked = true;
             document.getElementById("andCondition").checked = false;
-          }
+
         }
       }
 
@@ -115,7 +112,27 @@
       const currentPage = window.location.pathname;
 
 
-      console.log(currentPage);
+      const form = document.getElementById('searchForm');
+
+      if (form) {
+        const currentPage = window.location.pathname;
+
+        if (currentPage.includes('search')) {
+          form.action = '/item/search/0';
+        } else if (currentPage.includes('price')) {
+          form.action = '/item/price/0';
+        }
+
+      }
+
+      $('#search-form').submit(function(e) {
+        e.preventDefault();
+        let status = $('#status').val();
+        localStorage.setItem('status', status);
+        // 실제 검색 API 호출
+        // ...
+      });
+
     });
   </script>
 
@@ -126,35 +143,35 @@
 
 
 
-      <form class="search-form" id="searchForm" action="/item/search/0" method="post" th:object="${searchFormDto}">
-      <div class="checkbox-group">
-        <!-- AND/OR 라디오 버튼 그룹 -->
+        <form class="search-form" id="searchForm" action="/item/search/0" method="get" th:object="${searchFormDto}">
+        <div class="checkbox-group">
+          <!-- AND/OR 라디오 버튼 그룹 -->
 
-        <div>
-          <label class = "search-text" for="searchQuery">빠른 검색:</label>
-          <input type="text" id="searchQuery" name="searchQuery" placeholder="검색어를 입력하세요">
+       <!--   <div>
+            <label class = "search-text" for="searchQuery">빠른 검색:</label>
+            <input type="text" id="searchQuery" name="searchQuery" placeholder="검색어를 입력하세요">
+          </div>-->
+
+          <div class="button-group">
+            <span class = "search-text">세부 검색</span>
+            <label>
+              <input type="radio" id="andCondition" name="condition" value="AND" onclick="toggleCondition('AND')">
+              <span class = "search-text"> AND</span>
+            </label>
+            <label>
+              <input type="radio" id="orCondition" name="condition" value="OR" onclick="toggleCondition('OR')">
+              <span class = "search-text"> OR </span>
+            </label>
+          </div>
         </div>
+        <table class = "status-table">
+          <tbody id="status-table-body"></tbody>
+        </table>
 
-        <div class="button-group">
-          <span class = "search-text">세부 검색</span>
-          <label>
-            <input type="radio" id="andCondition" name="condition" value="AND" onclick="toggleCondition('AND')">
-            <span class = "search-text"> AND</span>
-          </label>
-          <label>
-            <input type="radio" id="orCondition" name="condition" value="OR" onclick="toggleCondition('OR')">
-            <span class = "search-text"> OR </span>
-          </label>
-        </div>
-      </div>
-      <table class = "status-table">
-        <tbody id="status-table-body"></tbody>
-      </table>
-
-        <button class ="search-button" type="submit">찾기</button>
+          <button class ="search-button" type="submit">찾기</button>
 
 
-  </form>
+    </form>
 
 </div>
 

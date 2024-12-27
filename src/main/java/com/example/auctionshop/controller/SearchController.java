@@ -18,6 +18,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.Console;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -30,15 +31,30 @@ public class SearchController {
 
 
     @GetMapping("/search/{page}")
-    public String search(@PathVariable int page, Model model) {
+    public String search(@PathVariable int page, Model model ,@Valid StatusFormDto statusFormDto) {
         // 'ItemSellStatus.Sell' 상태에 해당하는 아이템 목록을 가져옵니다.
-        List<Item> sellItems = itemService.findBySellItems(ItemSellStatus.Sell);
+
+
+        List<Item> sellItems = new ArrayList<>();
+
+        if(statusFormDto.getCondition() == "OR")
+        {
+            sellItems = itemService.findByStatusWithStatItemOR(ItemSellStatus.Sell
+                    , statusFormDto);
+        }
+        else{
+            sellItems = itemService.findByStatusWithStatItemAnd(ItemSellStatus.Sell
+                    , statusFormDto);
+        }
+
 
         // PageRequest를 사용하여 해당 페이지를 요청 (10개씩 페이지 처리)
         PageRequest pageRequest = PageRequest.of(page, 12);
 
         // 페이지네이션 처리
         Page<Item> sellItemsPage = itemService.getSellItems(pageRequest, sellItems);
+
+
 
         // 모델에 sellItemsPage (Page 객체)를 추가
         model.addAttribute("sellItems", sellItemsPage);
@@ -52,40 +68,23 @@ public class SearchController {
 
 
 
-
-    //여기는 스테이터스를 받아와서 찾는곳
-    @PostMapping("/search/{page}")
-    public String optionSearch(@PathVariable int page,
-            @Valid StatusFormDto statusFormDto
-            , BindingResult bindingResult , Model model
-    ) {
-
-        if(bindingResult.hasErrors()) {
-            log.info("error");
-        }
-        List<Item> sellItems = itemService.findBySellItems(ItemSellStatus.Sell);
-
-        // PageRequest를 사용하여 해당 페이지를 요청 (10개씩 페이지 처리)
-        PageRequest pageRequest = PageRequest.of(page, 12);
-
-        // 페이지네이션 처리
-        Page<Item> sellItemsPage = itemService.getSellItems(pageRequest, sellItems);
-
-        // 모델에 sellItemsPage (Page 객체)를 추가
-        model.addAttribute("sellItems", sellItemsPage);
-
-        // 검색 결과를 처리하고, 예를 들어 다른 페이지로 리디렉션
-        return "/item/search"; // 결과 페이지로 리디렉션
-    }
-
-
-
     @GetMapping("/price/{page}")
-    public String price(@PathVariable int page, Model model) {
+    public String price(@PathVariable int page , @Valid StatusFormDto statusFormDto, Model model)
+    {
         // 'ItemSellStatus.Sell' 상태에 해당하는 아이템 목록을 가져옵니다.
-        List<Item> sellItems = itemService.findBySellItems(ItemSellStatus.Complete);
 
-        // PageRequest를 사용하여 해당 페이지를 요청 (10개씩 페이지 처리)
+        List<Item> sellItems = new ArrayList<>();
+
+        if(statusFormDto.getCondition() == "OR")
+        {
+            sellItems = itemService.findByStatusWithStatItemOR(ItemSellStatus.Complete
+                    , statusFormDto);
+        }
+        else{
+            sellItems = itemService.findByStatusWithStatItemAnd(ItemSellStatus.Complete
+                    , statusFormDto);
+        }
+
         PageRequest pageRequest = PageRequest.of(page, 12);
 
         // 페이지네이션 처리
@@ -99,31 +98,6 @@ public class SearchController {
         model.addAttribute("totalPages", sellItemsPage.getTotalPages());
 
         return "item/price"; // 'item/search.html'로 이동
-    }
-
-    //여기는 스테이터스를 받아와서 찾는곳
-    @PostMapping("/price/{page}")
-    public String optionCompleteSearch(@PathVariable int page,
-                               @Valid StatusFormDto statusFormDto
-            , BindingResult bindingResult , Model model
-    ) {
-
-        if(bindingResult.hasErrors()) {
-            log.info("error");
-        }
-        List<Item> sellItems = itemService.findBySellItems(ItemSellStatus.Sell);
-
-        // PageRequest를 사용하여 해당 페이지를 요청 (10개씩 페이지 처리)
-        PageRequest pageRequest = PageRequest.of(page, 12);
-
-        // 페이지네이션 처리
-        Page<Item> sellItemsPage = itemService.getSellItems(pageRequest, sellItems);
-
-        // 모델에 sellItemsPage (Page 객체)를 추가
-        model.addAttribute("sellItems", sellItemsPage);
-
-        // 검색 결과를 처리하고, 예를 들어 다른 페이지로 리디렉션
-        return "/item/price"; // 결과 페이지로 리디렉션
     }
 
 

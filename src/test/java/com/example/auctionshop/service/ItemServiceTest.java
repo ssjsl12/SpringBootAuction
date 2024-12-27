@@ -48,7 +48,7 @@ class ItemServiceTest {
 
 
 
-        for(int i = 0 ; i < 10; ++i)
+        for(int i = 0 ; i < 100; ++i)
         {
             Item item = new Item();
             item.setName("test" + i);
@@ -60,11 +60,12 @@ class ItemServiceTest {
 
 
             ItemStat itemStat = new ItemStat();
-            itemStat.setDex(10L);
-            itemStat.setLuck(2L);
-            itemStat.setStr(3L);
-            itemStat.setDex(5L);
-            itemStat.setHp(1L);
+            itemStat.setDex(10L + i);
+            itemStat.setLuck(2L + i);
+            itemStat.setStr(3L+ i);
+            itemStat.setIntel(5L + i);
+            itemStat.setDex(5L+ i);
+            itemStat.setHp(3L + i);
 
             ItemImg itemImg = new ItemImg();
             itemImg.setImgName("test" + i);
