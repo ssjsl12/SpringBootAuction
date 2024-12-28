@@ -114,24 +114,18 @@
 
       const form = document.getElementById('searchForm');
 
-      if (form) {
+ /*     if (form) {
         const currentPage = window.location.pathname;
 
         if (currentPage.includes('search')) {
-          form.action = '/item/search/0';
+          form.action = '/item/search';
         } else if (currentPage.includes('price')) {
-          form.action = '/item/price/0';
+          form.action = '/item/price';
         }
 
       }
+*/
 
-      $('#search-form').submit(function(e) {
-        e.preventDefault();
-        let status = $('#status').val();
-        localStorage.setItem('status', status);
-        // 실제 검색 API 호출
-        // ...
-      });
 
     });
   </script>
@@ -143,7 +137,7 @@
 
 
 
-        <form class="search-form" id="searchForm" action="/item/search/0" method="get" th:object="${searchFormDto}">
+        <form class="search-form" id="searchForm" action="/item/setStatus" method="post" th:object="${searchFormDto}">
         <div class="checkbox-group">
           <!-- AND/OR 라디오 버튼 그룹 -->
 

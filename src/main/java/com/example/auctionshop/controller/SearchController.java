@@ -6,6 +6,7 @@ import com.example.auctionshop.dto.StatusFormDto;
 import com.example.auctionshop.entity.Item;
 import com.example.auctionshop.repository.ItemRepository;
 import com.example.auctionshop.service.ItemService;
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -16,6 +17,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.Console;
 import java.util.ArrayList;
@@ -67,11 +69,25 @@ public class SearchController {
     }
 
 
+    @PostMapping("/setStatus")
+    public String setStatus(@Valid StatusFormDto statusFormDto, BindingResult bindingResult, HttpSession session) {
+        if (bindingResult.hasErrors()) {
+            return "page";
+        }
+
+        // StatusFormDto 값을 세션에 저장
+        session.setAttribute("statusFormDto", statusFormDto);
+
+        return "redirect:/item/price/0";  // 리다이렉트하여 페이지 넘기기
+    }
+
 
     @GetMapping("/price/{page}")
-    public String price(@PathVariable int page , @Valid StatusFormDto statusFormDto, Model model)
+    public String price(@PathVariable int page ,HttpSession session , @Valid  StatusFormDto statusFormDto, Model model)
     {
-        // 'ItemSellStatus.Sell' 상태에 해당하는 아이템 목록을 가져옵니다.
+
+        if(session.getAttribute("statusFormDto") != null)
+        statusFormDto = (StatusFormDto)session.getAttribute("statusFormDto");
 
         List<Item> sellItems = new ArrayList<>();
 
@@ -80,7 +96,8 @@ public class SearchController {
             sellItems = itemService.findByStatusWithStatItemOR(ItemSellStatus.Complete
                     , statusFormDto);
         }
-        else{
+        else
+        {
             sellItems = itemService.findByStatusWithStatItemAnd(ItemSellStatus.Complete
                     , statusFormDto);
         }
@@ -93,7 +110,6 @@ public class SearchController {
         // 모델에 sellItemsPage (Page 객체)를 추가
         model.addAttribute("sellItems", sellItemsPage);
 
-        // 현재 페이지 번호와 전체 페이지 수를 모델에 추가
         model.addAttribute("currentPage", sellItemsPage.getNumber());
         model.addAttribute("totalPages", sellItemsPage.getTotalPages());
 
