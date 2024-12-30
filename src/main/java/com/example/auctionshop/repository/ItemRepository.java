@@ -23,4 +23,7 @@ public interface ItemRepository extends JpaRepository<Item,Long>
                                           @Param("sellStatus") ItemSellStatus sellStatus);
 
 
+        Item findIteById(Long id);
+
+        Item findItemById(Long id);
 }

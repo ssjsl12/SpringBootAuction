@@ -68,4 +68,9 @@ public class MemberService implements UserDetailsService {
         return memberRepository.findByEmail(email);
      }
 
+     public void updateMemberMeso(Member member ,int itemPrice) {
+        member.setMeso(member.getMeso() - itemPrice);
+        memberRepository.save(member);
+     }
+
 }

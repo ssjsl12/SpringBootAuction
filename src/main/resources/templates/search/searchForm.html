@@ -74,6 +74,7 @@
         input.placeholder = "수치";
         input.style.width = "60px";
         input.style.marginLeft = "10px";
+        input.value = "0";
         input.style.display = "inline-block";  // 입력 필드도 inline-block으로 설정
         inputCell.appendChild(input);
 
@@ -114,17 +115,17 @@
 
       const form = document.getElementById('searchForm');
 
- /*     if (form) {
+      if (form) {
         const currentPage = window.location.pathname;
 
         if (currentPage.includes('search')) {
-          form.action = '/item/search';
+          form.action = '/item/searchStatus';
         } else if (currentPage.includes('price')) {
-          form.action = '/item/price';
+          form.action = '/item/priceStatus';
         }
 
       }
-*/
+
 
 
     });
@@ -137,7 +138,7 @@
 
 
 
-        <form class="search-form" id="searchForm" action="/item/setStatus" method="post" th:object="${searchFormDto}">
+        <form class="search-form" id="searchForm"  method="post" th:object="${searchFormDto}">
         <div class="checkbox-group">
           <!-- AND/OR 라디오 버튼 그룹 -->
 

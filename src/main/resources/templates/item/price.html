@@ -42,25 +42,27 @@
             <tbody>
             <tr th:each="item : ${sellItems}">
                 <td class="hover-item">
-                    <img th:src="@{/img/{img}.png(img=${item.itemImg.imgUrl})}"
+                    <img th:src="@{/img/{img}.png(img=${item.getItem().itemImg.imgUrl})}"
                          alt="Item Image"
                          style="width: 15px; height: 15px; margin-left: 10px;" />
-                    <span th:text="${item.name}">아이템 이름</span>
+                    <span th:text="${item.getItem().name}">아이템 이름</span>
 
                     <!-- 숨겨진 팝업 -->
                     <div class="popup">
-                        <img th:src="@{/img/{img}.png(img=${item.itemImg.imgUrl})}"
+                        <img th:src="@{/img/{img}.png(img=${item.getItem().itemImg.imgUrl})}"
                              alt="Item Image"
                              style="width: 100px; height: 100px;" />
-                        <p th:if="${item.itemStat.intel} != null" th:text="'INT: ' + ${item.itemStat.intel}"></p>
-                        <p th:if="${item.itemStat.dex} != null" th:text="'DEX: ' + ${item.itemStat.dex}"></p>
-                        <p th:if="${item.itemStat.str} != null" th:text="'STR: ' + ${item.itemStat.str}"></p>
-                        <p th:if="${item.itemStat.luck} != null" th:text="'LUCK: ' + ${item.itemStat.luck}"></p>
+                        <p th:if="${item.getItem().itemStat.intel} != null" th:text="'INT: ' + ${item.getItem().itemStat.intel}"></p>
+                        <p th:if="${item.getItem().itemStat.dex} != null" th:text="'DEX: ' + ${item.getItem().itemStat.dex}"></p>
+                        <p th:if="${item.getItem().itemStat.str} != null" th:text="'STR: ' + ${item.getItem().itemStat.str}"></p>
+                        <p th:if="${item.getItem().itemStat.luck} != null" th:text="'LUCK: ' + ${item.getItem().itemStat.luck}"></p>
+                        <p th:if="${item.getItem().itemStat.hp} != null" th:text="'LUCK: ' + ${item.getItem().itemStat.hp}"></p>
+                        <p th:if="${item.getItem().itemStat.mp} != null" th:text="'LUCK: ' + ${item.getItem().itemStat.mp}"></p>
 
                     </div>
                 </td>
-                <td th:text="${item.price}">가격</td>
-                <td th:text="${item.stock_number}">개수</td>
+                <td th:text="${item.getItem().price}">가격</td>
+                <td th:text="${item.count}">개수</td>
             </tr>
             </tbody>
         </table>

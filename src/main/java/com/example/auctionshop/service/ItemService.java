@@ -4,6 +4,7 @@ import com.example.auctionshop.constant.ItemSellStatus;
 import com.example.auctionshop.dto.StatusFormDto;
 import com.example.auctionshop.entity.Item;
 import com.example.auctionshop.entity.ItemImg;
+import com.example.auctionshop.entity.ItemStat;
 import com.example.auctionshop.repository.ItemImgRepository;
 import com.example.auctionshop.repository.ItemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,25 @@ public class ItemService {
     @Autowired
     private ItemImgRepository itemImgRepository;
 
+
+
+    public Item findById(Long id) {
+
+        return itemRepository.findItemById(id);
+    }
+
+    public void UpdateStock(Item item , Long stock)
+    {
+        item.setStock_number(item.getStock_number() - stock);
+
+        if(item.getStock_number() <= 0)
+        {
+            item.setSellStatus(ItemSellStatus.Complete);
+        }
+
+        itemRepository.save(item);
+    }
+
     public List<Item> findBySellItems(ItemSellStatus status)
     {
         List<Item> items = itemRepository.findItemsBySellStatus(status);
@@ -30,20 +50,20 @@ public class ItemService {
         return items;
     }
 
-    public List<Item> findByStatusWithStatItemAnd(ItemSellStatus status, StatusFormDto formDto)
+    public List<Item> findByStatusWithStatItemAnd(StatusFormDto formDto)
     {
         List<Item> items = itemRepository.findItemsByStatWithAnd(
                 formDto.getInt_value() , formDto.getDex_value() , formDto.getLuck_value()
-        ,formDto.getStr_value(),formDto.getHp_value() , status);
+        ,formDto.getStr_value(),formDto.getHp_value() , ItemSellStatus.Sell);
 
         return items;
     }
 
-    public List<Item> findByStatusWithStatItemOR(ItemSellStatus status, StatusFormDto formDto)
+    public List<Item> findByStatusWithStatItemOR(StatusFormDto formDto)
     {
         List<Item> items = itemRepository.findItemsByStatWithOr(
                 formDto.getInt_value() , formDto.getDex_value() , formDto.getLuck_value()
-                ,formDto.getStr_value(),formDto.getHp_value() , status);
+                ,formDto.getStr_value(),formDto.getHp_value() ,ItemSellStatus.Sell);
 
         return items;
     }
