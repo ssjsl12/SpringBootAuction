@@ -7,10 +7,12 @@ import com.example.auctionshop.dto.StatusFormDto;
 import com.example.auctionshop.entity.CompleteItem;
 import com.example.auctionshop.entity.Item;
 import com.example.auctionshop.entity.Member;
+import com.example.auctionshop.entity.StoreItem;
 import com.example.auctionshop.repository.ItemRepository;
 import com.example.auctionshop.service.CompleteItemService;
 import com.example.auctionshop.service.ItemService;
 import com.example.auctionshop.service.MemberService;
+import com.example.auctionshop.service.StoreItemService;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -38,7 +40,7 @@ import java.util.List;
 @Log4j2
 public class SearchController {
 
-    private ItemService itemService;
+    private StoreItemService storeItemService;
     private MemberService memberService;
     private CompleteItemService completeItemService;
 
@@ -51,15 +53,15 @@ public class SearchController {
         if(session.getAttribute("statusFormDto") != null)
             statusFormDto = (StatusFormDto)session.getAttribute("statusFormDto");
 
-        List<Item> sellItems = new ArrayList<>();
+        List<StoreItem> sellItems = new ArrayList<>();
 
         if(statusFormDto.getCondition() == "OR")
         {
-            sellItems = itemService.findByStatusWithStatItemOR(statusFormDto);
+            sellItems = storeItemService.findByStatusWithStatItemOR(statusFormDto);
         }
         else
         {
-            sellItems = itemService.findByStatusWithStatItemAnd(statusFormDto);
+            sellItems = storeItemService.findByStatusWithStatItemAnd(statusFormDto);
         }
 
 
@@ -67,7 +69,7 @@ public class SearchController {
         PageRequest pageRequest = PageRequest.of(page, 12);
 
         // 페이지네이션 처리
-        Page<Item> sellItemsPage = itemService.getSellItems(pageRequest, sellItems);
+        Page<StoreItem> sellItemsPage = storeItemService.getSellItems(pageRequest, sellItems);
 
 
 
@@ -183,18 +185,16 @@ public class SearchController {
 
         if(user.getMeso() < itemPrice)
         {
-            log.info("here?");
-
-            return new ResponseEntity(HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<String>("메소가 적습니다.",HttpStatus.BAD_REQUEST);
         }
         memberService.updateMemberMeso(user,(int)itemPrice);
 
-        Item item = itemService.findById(orderDto.getId());
+        StoreItem storeItem = storeItemService.findById(orderDto.getId());
 
-        itemService.UpdateStock(item,orderDto.getStock());
+        storeItemService.UpdateStock(storeItem,orderDto.getStock());
 
         CompleteItem cItem = new CompleteItem();
-        cItem.setItem(item);
+        cItem.setStoreItem(storeItem);
         cItem.setCount(orderDto.getStock());
         completeItemService.AddCompleteItem(cItem);
 

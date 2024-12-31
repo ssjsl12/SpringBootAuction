@@ -4,6 +4,7 @@ import com.example.auctionshop.entity.Item;
 import com.example.auctionshop.entity.ItemInventory;
 import com.example.auctionshop.entity.Member;
 import com.example.auctionshop.repository.InventoryRepository;
+import com.example.auctionshop.repository.ItemRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
@@ -19,6 +20,8 @@ import java.util.Optional;
 public class InventoryService
 {
       public final InventoryRepository inventoryRepository;
+
+      public final ItemRepository itemRepository;
 
       public ItemInventory saveInventory(ItemInventory inventory)
       {
@@ -37,12 +40,16 @@ public class InventoryService
 
     }
 
-    public List<Item> getItems(Member member)
+    public List<Item> getItems(ItemInventory inventory)
     {
-        ItemInventory inventory = inventoryRepository.findByMemberId(member.getId());
-
-        return inventory.getItems();
+        List<Item> items = itemRepository.findItemsByInventoryId(inventory.getId());
+        return items;
     }
 
+
+    public ItemInventory getInventory(Member member)
+    {
+        return inventoryRepository.findByMemberId(member.getId());
+    }
 
 }

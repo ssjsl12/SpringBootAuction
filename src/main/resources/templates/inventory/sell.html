@@ -2,11 +2,109 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layouts/layout1}">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
 
-</body>
+<th:block layout:fragment="script">
+    <script th:inline="javascript">
+
+        $(document).ready(function () {
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            const itemBoxes = document.querySelectorAll('.item-box');
+
+            const initialFilterType = "Equip";  // 최초 필터를 "Equip"으로 설정 (필요에 맞게 수정)
+
+            // 필터 버튼을 클릭하지 않고 초기 상태로 필터 적용
+            itemBoxes.forEach(item => {
+                const itemType = item.getAttribute('data-type');
+                if (itemType === initialFilterType) {
+                    item.style.display = 'flex';  // 필터에 맞는 아이템만 표시
+                } else {
+                    item.style.display = 'none';  // 나머지 아이템은 숨김
+                }
+            });
+
+            filterButtons.forEach(button => {
+                button.addEventListener('click', function () {
+                    const filterType = this.getAttribute('data-type');
+
+                    itemBoxes.forEach(item => {
+                        const itemType = item.getAttribute('data-type');
+                        if (itemType === filterType) {
+                            item.style.display = 'flex';
+                        } else {
+                            item.style.display = 'none';
+                        }
+                    });
+                });
+            });
+
+            $(".item-details").on("click", function() {
+                // 클릭된 아이템의 데이터 가져오기
+
+                const itemName = $(this).data("item-name");
+                const itemStat= $(this).data("item-stat");
+                const itemImgUrl = $(this).data("item-img");
+                const itemType = $(this).data("item-type");
+                // sell-form에 아이템 정보 표시
+                const sellForm = $(".sell-form");
+                sellForm.empty();  // 이전 내용 지우기
+
+
+
+                // 아이템 이미지와 정보 삽입
+                const itemHtml = `
+            <form class="item-info">
+                <h3>아이템 이름: ${itemName}</h3>
+                <img src="/img/${itemImgUrl}.png" alt="${itemName}" style="width: 100px; height: 100px;" />
+
+
+
+
+            </form>
+        `;
+
+                // sell-form에 내용 추가
+                sellForm.append(itemHtml);
+            });
+
+        });
+    </script>
+</th:block>
+
+<div layout:fragment="content">
+
+    <div class = "item-space">
+        <div class ="inventory-list">
+
+            <button class="filter-btn" data-type="Equip">장비</button>
+            <button class="filter-btn" data-type="Consumable">소비</button>
+            <button class="filter-btn" data-type="Chair">설치</button>
+            <button class="filter-btn" data-type="Other">기타</button>
+            <button class="filter-btn" data-type="Cash">캐시</button>
+
+        </div>
+
+         <div class = "item-lists">
+
+             <div th:each="item : ${items}"  th:if ="${item.sellStatus == T(com.example.auctionshop.constant.ItemSellStatus).NotSell}" th:data-type="${item.type}" class = "item-box">
+                 <div class="item-details" th:data-item-name="${item.name}"
+                     th:data-item-type="${item.type}" th:data-item-stat="${item.itemStat}" th:data-item-img="${item.itemImg.imgUrl}"
+                      style="cursor: pointer" >
+                     <img th:src="@{/img/{img}.png(img=${item.itemImg.imgUrl})}"
+                          style="width: 30px; height: 30px; margin-left: 10px;" />
+
+                 </div>
+             </div>
+
+         </div>
+        <div class = "sell-form">
+
+
+
+        </div>
+
+    </div>
+
+</div>
+
+
 </html>

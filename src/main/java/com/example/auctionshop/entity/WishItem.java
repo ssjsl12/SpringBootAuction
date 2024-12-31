@@ -23,4 +23,6 @@ public class WishItem {
     @JoinColumn(name = "member_id")
     private Member member;
 
+    int price;
+
 }

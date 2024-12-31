@@ -148,11 +148,11 @@
                     <p th:if="${item.item.itemStat.hp} != null" th:text="'hp: ' + ${item.item.itemStat.hp}"></p>
                 </div>
             </td>
-            <td th:text="${item.item.price}">가격</td>
+            <td th:text="${item.price}">가격</td>
             <td th:text="${item.item.stock_number}">개수</td>
             <td>
                 <button type="button" class = "modalOpenButton"
-                        th:data-price="${item.item.price}"
+                        th:data-price="${item.price}"
                         th:data-stock="${item.item.stock_number}"
                         th:data-id="${item.item.id}"
                         th:data-img ="${item.item.itemImg.imgUrl}"

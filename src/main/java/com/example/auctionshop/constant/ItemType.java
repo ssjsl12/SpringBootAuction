@@ -2,6 +2,6 @@ package com.example.auctionshop.constant;
 
 public enum ItemType
 {
-    Equip,Consumable
+    Equip,Consumable,Chair,Other,Cash
 
 }

@@ -13,6 +13,6 @@ import lombok.*;
 public class WishItemDto {
 
     private Long id;
-
+    private int price;
 
 }

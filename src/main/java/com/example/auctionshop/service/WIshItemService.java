@@ -27,10 +27,11 @@ public class WIshItemService {
        return items;
     }
 
-    public void insertWishItem(Item item, Member member)
+    public void insertWishItem(Item item, Member member , int price)
     {
         WishItem wishItem = new WishItem();
         wishItem.setMember(member);
+        wishItem.setPrice(price);
         wishItem.setItem(item);
 
         wishItemRepository.save(wishItem);

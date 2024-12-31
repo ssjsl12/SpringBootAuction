@@ -72,7 +72,7 @@ public class CartController
             }
         }
 
-        wishItemService.insertWishItem(item, user);
+        wishItemService.insertWishItem(item, user , wishItemDto.getPrice());
 
         return new ResponseEntity<Long>(wishItemDto.getId(), HttpStatus.OK);
     }

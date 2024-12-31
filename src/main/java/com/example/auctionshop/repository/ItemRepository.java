@@ -22,8 +22,7 @@ public interface ItemRepository extends JpaRepository<Item,Long>
         List<Item> findItemsByStatWithOr(@Param("intel") int intel, @Param("dex") int dex, @Param("luck") int luck, @Param("str") int str, @Param("hp") int hp,
                                           @Param("sellStatus") ItemSellStatus sellStatus);
 
-
-        Item findIteById(Long id);
-
         Item findItemById(Long id);
+
+        List<Item> findItemsByInventoryId(Long inventoryId);
 }

@@ -16,8 +16,8 @@ public class CompleteItem {
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "item_id")
-    private Item item;
+    @JoinColumn(name = "store_item_id")
+    private StoreItem storeItem ;
 
     Long count;
 
