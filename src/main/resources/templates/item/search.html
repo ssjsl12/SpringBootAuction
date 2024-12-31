@@ -42,6 +42,9 @@
 
                 const itemBuyButton = $(".item-buy");
 
+                const itemWishButton = $(".item-wish");
+
+
                 modalImg.attr('src', `/img/${img}.png`);
                 modalId.text('ID: ' + id);
                 modalPrice.text('Price: ' + price);
@@ -91,6 +94,43 @@
 
                 })
 
+
+                itemWishButton.off('click').on('click',function () {
+
+                    var paramData =
+                        {
+                            id: id,
+                        }
+
+                    var param = JSON.stringify(paramData);
+
+                    var url = "/cart/wish";
+
+                    $.ajax({
+                        url      : url,
+                        type     : "Post",
+                        contentType : "application/json",
+                        data     : param,
+                        beforeSend : function(xhr){
+
+                        },
+                        dataType : "json",
+                        cache   : false,
+                        success  : function(result, status){
+                            alert("찜 완료.");
+                            location.href='/item/search';
+                        },
+                        error : function(jqXHR, status, error){
+                            if(jqXHR.status == '401'){
+                                alert('로그인 후 이용해주세요');
+                                location.href='/members/login';
+                            } else{
+                                alert(jqXHR.responseText);
+                            }
+                        }
+                    });
+
+                })
 }
 
 
@@ -128,9 +168,10 @@
                 <img id="modalImg" src="" alt="Item Image"  style="width: 100px; height: 100px;" />
                 <p id="modalId"></p>
                 <p id="modalPrice"></p>
-                <p>갯수 : <input type="text" id="modalStock"/></p>
+                <p>갯수 : <input type="text" id="modalStock" value="1"/></p>
 
                 <button class="item-buy">구매</button>
+                <button class="item-wish">찜 하기</button>
                 <button id="modalCloseButton">닫기</button>
             </div>
         </div>

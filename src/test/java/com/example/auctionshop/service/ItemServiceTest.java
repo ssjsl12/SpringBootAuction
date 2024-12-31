@@ -40,13 +40,10 @@ class ItemServiceTest {
     @Test
     public void saveItem()
     {
-        Member member = memberRepository.findByEmail("ssjsl12@naver.com");
+        Member member = memberRepository.findByEmail("admin@test.com");
         ItemInventory inventory = inventoryRepository.findByMemberId(member.getId());
 
         log.info("inven : " + inventory.toString());
-
-
-
 
         for(int i = 0 ; i < 100; ++i)
         {

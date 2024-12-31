@@ -1,12 +1,27 @@
 package com.example.auctionshop.controller;
 
+import com.example.auctionshop.dto.WishItemDto;
+import com.example.auctionshop.entity.CompleteItem;
+import com.example.auctionshop.entity.Item;
+import com.example.auctionshop.entity.Member;
+import com.example.auctionshop.entity.WishItem;
+import com.example.auctionshop.service.ItemService;
+import com.example.auctionshop.service.MemberService;
+import com.example.auctionshop.service.WIshItemService;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+
+import java.security.Principal;
+import java.util.List;
 
 @Controller
 @RequestMapping("/cart")
@@ -15,14 +30,53 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class CartController
 {
 
-    @GetMapping("/wish")
-    public String wishItem(Model model)
-    {
+    private MemberService memberService;
+    private WIshItemService wishItemService;
+    private ItemService itemService;
 
+    @GetMapping("/wish/{page}")
+    public String wishItem(@PathVariable int page, Model model , Principal principal)
+    {
+        String email = principal.getName();
+
+        Member user = memberService.findByEmail(email);
+
+        List<WishItem> items = wishItemService.getWishItems(user);
+
+        PageRequest pageRequest = PageRequest.of(page, 12);
+
+
+        Page<WishItem> sellItemsPage = wishItemService.getWishItems(pageRequest, items);
+
+        model.addAttribute("sellItems", sellItemsPage);
+        model.addAttribute("currentPage", sellItemsPage.getNumber());
+        model.addAttribute("totalPages", sellItemsPage.getTotalPages());
 
 
         return "cart/wish";
     }
+
+    @PostMapping("/wish")
+    public @ResponseBody ResponseEntity WishPost(@RequestBody @Valid WishItemDto wishItemDto , Principal principal)
+    {
+        String email = principal.getName();
+        Member user = memberService.findByEmail(email);
+        List<WishItem> items = wishItemService.getWishItems(user);
+        Item item = itemService.findById(wishItemDto.getId());
+
+        for(int i = 0; i < items.size(); i++)
+        {
+            if(items.get(i).getItem().getId() == item.getId())
+            {
+                return new ResponseEntity<String>("이미 찜한 상품입니다",HttpStatus.BAD_REQUEST);
+            }
+        }
+
+        wishItemService.insertWishItem(item, user);
+
+        return new ResponseEntity<Long>(wishItemDto.getId(), HttpStatus.OK);
+    }
+
 
 
 }

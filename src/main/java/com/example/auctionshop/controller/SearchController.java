@@ -41,6 +41,7 @@ public class SearchController {
     private ItemService itemService;
     private MemberService memberService;
     private CompleteItemService completeItemService;
+
     @GetMapping("/search/{page}")
     public String search(@PathVariable int page
             ,HttpSession session

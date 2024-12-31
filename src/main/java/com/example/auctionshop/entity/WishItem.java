@@ -5,20 +5,22 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Table(name = "completeItem")
+@Table(name = "wishItem")
 @Getter
 @Setter
-public class CompleteItem {
+public class WishItem {
 
     @Id
-    @Column(name ="item_comple_id")
+    @Column(name = "item_wish_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "item_id")
     private Item item;
 
-    Long count;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "member_id")
+    private Member member;
 
 }

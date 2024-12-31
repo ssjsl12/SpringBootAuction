@@ -41,10 +41,17 @@ body {
 .searchItemForm
 {
     width: 80%;
-    height: 70%;
     position: absolute;
     top:192px;
     left: 20%;
+    background: #555555;
+}
+
+.searchWishItemForm
+{
+    width: 100%;
+    position: absolute;
+    top:192px;
     background: #555555;
 }
 
@@ -328,15 +335,15 @@ searchTable*/
 }
 
 .hover-item {
-    position: relative;
+
     cursor: pointer;
 }
 
 .popup {
     display: none;
     position: absolute;
-    top: -100px;
-    right: 0;
+    top: 30%;
+    left : 40%;
     background-color: #fff;
     border: 1px solid #ccc;
     border-radius: 5px;
@@ -360,8 +367,9 @@ searchTable*/
     display: block;
 }
 
-#modalOpenButton, #modalCloseButton {
-
+#modalOpenButton {
+    pointer-events: none
+;
 }
 
 #modalContainer {
@@ -388,9 +396,9 @@ searchTable*/
     display: none;
 }
 
-.item-buy , #modalCloseButton
+.item-buy , #modalCloseButton , .item-wish
 {
-    left : 62%;
+    left : 37%;
     top : 8%;
     position: relative;
 }
