@@ -79,13 +79,13 @@ public class ItemService {
         return new PageImpl<>(pageContent, pageRequest, items.size());
     }
 
-    public void cancelItemStatus(Long itemId)
+    public void changeItemStatus(Long itemId , ItemSellStatus status)
     {
         Item item = itemRepository.findItemById(itemId);
         StoreItem sItem = storeItemRepository.findByItem_Id(itemId);
 
-        item.setSellStatus(ItemSellStatus.NotSell);
-        sItem.setSellStatus(ItemSellStatus.NotSell);
+        item.setSellStatus(status);
+        sItem.setSellStatus(status);
 
         itemRepository.save(item);
         storeItemRepository.save(sItem);

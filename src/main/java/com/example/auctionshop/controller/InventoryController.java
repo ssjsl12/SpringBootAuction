@@ -1,5 +1,6 @@
 package com.example.auctionshop.controller;
 
+import com.example.auctionshop.constant.ItemSellStatus;
 import com.example.auctionshop.entity.Item;
 import com.example.auctionshop.entity.ItemInventory;
 import com.example.auctionshop.entity.Member;
@@ -54,9 +55,9 @@ public class InventoryController {
     public @ResponseBody ResponseEntity sellItem(@RequestBody Map<String , Object> request)
     {
         Long itemId = Long.valueOf(request.get("itemId").toString());
-        log.info(itemId);
+        itemService.changeItemStatus(itemId , ItemSellStatus.Sell);
 
-        return new ResponseEntity<String>("취소 완료", HttpStatus.OK);
+        return new ResponseEntity<String>("거래소 등록 완료", HttpStatus.OK);
     }
 
     @GetMapping(value = "/complete")
@@ -72,7 +73,7 @@ public class InventoryController {
     {
         Long itemId = Long.valueOf(request.get("itemId").toString());
 
-        itemService.cancelItemStatus(itemId);
+        itemService.changeItemStatus(itemId , ItemSellStatus.NotSell);
 
         return new ResponseEntity<String>("취소 완료", HttpStatus.OK);
     }

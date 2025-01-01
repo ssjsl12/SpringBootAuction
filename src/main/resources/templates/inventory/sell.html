@@ -75,6 +75,7 @@
                     data: JSON.stringify({ itemId: itemId }),  // 아이템 ID만 전송
                     success: function(response) {
                         alert(response);
+                        location.href = '/inventory/sell';
                         // 성공적인 응답 후 작업
                     },
                     error: function(xhr, status, error) {
