@@ -20,7 +20,7 @@ body {
     margin-top: 10%;
     margin-left: 45%;
     margin-right: 35%;*/
-    display: flex;
+    /*display: flex;*/
 }
 
 .sidebar {
@@ -379,6 +379,11 @@ searchTable*/
     display: block;
 }
 
+.cancel-popup
+{
+
+}
+
 #modalOpenButton {
     pointer-events: none
 ;
@@ -436,6 +441,30 @@ searchTable*/
     align-content: flex-start;
     overflow-y: auto;
     max-height: 80vh;
+}
+
+.item-lists-sell
+{
+    width: 100%;
+    height: 100%;
+    background-color: #333333;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    position: relative;
+    padding :30px;
+    align-content: flex-start;
+    overflow-y: auto;
+    max-height: 80vh;
+}
+
+
+.sell-state-form
+{
+    width: 100%;
+    height: 20%;
+    background-color: lightslategray;
+    position: fixed;
 }
 
 .sell-form

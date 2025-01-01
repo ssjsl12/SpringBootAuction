@@ -5,8 +5,10 @@ import com.example.auctionshop.dto.StatusFormDto;
 import com.example.auctionshop.entity.Item;
 import com.example.auctionshop.entity.ItemImg;
 import com.example.auctionshop.entity.ItemStat;
+import com.example.auctionshop.entity.StoreItem;
 import com.example.auctionshop.repository.ItemImgRepository;
 import com.example.auctionshop.repository.ItemRepository;
+import com.example.auctionshop.repository.StoreItemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -24,6 +26,8 @@ public class ItemService {
     @Autowired
     private ItemImgRepository itemImgRepository;
 
+    @Autowired
+    private StoreItemRepository storeItemRepository;
 
 
     public Item findById(Long id) {
@@ -68,14 +72,24 @@ public class ItemService {
         return items;
     }
 
-
-
-
     public Page<Item> getSellItems(PageRequest pageRequest , List<Item> items) {
         int start = (int) pageRequest.getOffset();
         int end = Math.min((start + pageRequest.getPageSize()), items.size());
         List<Item> pageContent = items.subList(start, end);
         return new PageImpl<>(pageContent, pageRequest, items.size());
+    }
+
+    public void cancelItemStatus(Long itemId)
+    {
+        Item item = itemRepository.findItemById(itemId);
+        StoreItem sItem = storeItemRepository.findByItem_Id(itemId);
+
+        item.setSellStatus(ItemSellStatus.NotSell);
+        sItem.setSellStatus(ItemSellStatus.NotSell);
+
+        itemRepository.save(item);
+        storeItemRepository.save(sItem);
+
     }
 
 

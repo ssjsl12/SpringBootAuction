@@ -6,6 +6,8 @@
 <th:block layout:fragment="script">
     <script th:inline="javascript">
 
+        const itemid = 0;
+
         $(document).ready(function () {
             const filterButtons = document.querySelectorAll('.filter-btn');
             const itemBoxes = document.querySelectorAll('.item-box');
@@ -41,32 +43,97 @@
                 // 클릭된 아이템의 데이터 가져오기
 
                 const itemName = $(this).data("item-name");
-                const itemStat= $(this).data("item-stat");
                 const itemImgUrl = $(this).data("item-img");
-                const itemType = $(this).data("item-type");
+                const itemId = $(this).data("item-id");
                 // sell-form에 아이템 정보 표시
                 const sellForm = $(".sell-form");
                 sellForm.empty();  // 이전 내용 지우기
 
-
-
                 // 아이템 이미지와 정보 삽입
                 const itemHtml = `
-            <form class="item-info">
-                <h3>아이템 이름: ${itemName}</h3>
-                <img src="/img/${itemImgUrl}.png" alt="${itemName}" style="width: 100px; height: 100px;" />
-
-
-
-
-            </form>
-        `;
+        <div class="item-info" data-item-id = "${itemId}">
+            <h3>아이템 이름: ${itemName}</h3>
+            <img src="/img/${itemImgUrl}.png" alt="${itemName}" style="width: 100px; height: 100px;" />
+            <button class="sell-item">판매</button>
+        </div>
+    `;
 
                 // sell-form에 내용 추가
                 sellForm.append(itemHtml);
             });
 
+            // 이벤트 위임: sell-item 버튼 클릭 이벤트를 부모 요소인 sell-form에 바인딩
+            $(".sell-form").on("click", ".sell-item", function () {
+                // 클릭한 버튼의 부모 div 요소에서 아이템 정보를 가져옵니다.
+                var parentDiv = $(this).closest(".item-info"); // 버튼의 부모 div 요소 찾기
+                var itemId = parentDiv.data("item-id");
+
+                $.ajax({
+                    url: '/inventory/sell', // 서버에 요청할 URL
+                    type: 'POST',  // 요청 방식
+                    contentType: 'application/json',  // 요청 타입
+                    data: JSON.stringify({ itemId: itemId }),  // 아이템 ID만 전송
+                    success: function(response) {
+                        alert(response);
+                        // 성공적인 응답 후 작업
+                    },
+                    error: function(xhr, status, error) {
+                        console.error('에러 발생:', error);
+                        alert('아이템 취소 실패');
+                    }
+                });
+            });
+
+
+            $(".sell-cancel-btn").on("click" , function(){
+
+                itemId = $(this).data("item-id");
+
+                openPopup();
+
+            })
+
+            $(".cancel-item").on("click", function(){
+
+                $.ajax({
+                    url: '/inventory/cancelitem', // 요청 보낼 URL
+                    type: 'POST',                // 요청 방식
+                    contentType: 'application/json', // Content-Type 설정
+                    data: JSON.stringify({itemId : itemId}),    // 빈 데이터 전송
+                    success: function(response) {
+                        alert(response);
+                        closePopup(); // 팝업 닫기
+                        location.href ='/inventory/sell';
+                    },
+                    error: function(xhr, status, error) {
+                        console.error('에러 발생:', error);
+                        alert('취소 요청에 실패했습니다. 다시 시도해주세요.');
+                    }
+                });
+            });
+
+
         });
+
+
+        function openPopup() {
+            document.getElementById('cancle-popup').style.display = 'block';
+            document.getElementById('popup-background').style.display = 'block';
+        }
+
+        // 팝업 닫기
+        function closePopup() {
+            document.getElementById('cancle-popup').style.display = 'none';
+            document.getElementById('popup-background').style.display = 'none';
+        }
+
+
+
+
+        // 취소 액션
+
+
+
     </script>
 </th:block>
 
@@ -86,7 +153,7 @@
          <div class = "item-lists">
 
              <div th:each="item : ${items}"  th:if ="${item.sellStatus == T(com.example.auctionshop.constant.ItemSellStatus).NotSell}" th:data-type="${item.type}" class = "item-box">
-                 <div class="item-details" th:data-item-name="${item.name}"
+                 <div class="item-details" th:data-item-name="${item.name}" th:data-item-id ="${item.getId()}"
                      th:data-item-type="${item.type}" th:data-item-stat="${item.itemStat}" th:data-item-img="${item.itemImg.imgUrl}"
                       style="cursor: pointer" >
                      <img th:src="@{/img/{img}.png(img=${item.itemImg.imgUrl})}"
@@ -102,7 +169,39 @@
 
         </div>
 
+
+
     </div>
+
+    <div class="sell-state-form">
+        <div class="item-lists-sell">
+            <!-- 판매 상태인 항목을 반복 출력 -->
+            <div th:each="item : ${items}" th:if="${item.sellStatus == T(com.example.auctionshop.constant.ItemSellStatus).Sell}">
+                <div  class="sell-cancel-btn" th:data-item-name="${item.name}"
+                     th:data-item-type="${item.type}"
+                     th:data-item-stat="${item.itemStat}"
+                     th:data-item-img="${item.itemImg.imgUrl}"
+                     th:data-item-id ="${item.id}"
+                     style="cursor: pointer">
+                    <img th:src="@{/img/{img}.png(img=${item.itemImg.imgUrl})}"
+                         style="width: 30px; height: 30px; margin-left: 10px;" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="cancle-popup" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: white; border: 1px solid #ccc; padding: 20px; z-index: 1000;">
+        <p>거래를 취소하시겠습니까?</p>
+        <button class ="cancel-item">취소</button> <!-- 취소 버튼 -->
+        <button onclick="closePopup()">닫기</button> <!-- 닫기 버튼 -->
+    </div>
+
+    <div id="popup-background" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); z-index: 999;" onclick="closePopup()"></div>
+
+
+
+    </form>
+
 
 </div>
 
