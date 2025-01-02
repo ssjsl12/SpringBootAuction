@@ -177,15 +177,33 @@
     <div class="sell-state-form">
         <div class="item-lists-sell">
             <!-- 판매 상태인 항목을 반복 출력 -->
-            <div th:each="item : ${items}" th:if="${item.sellStatus == T(com.example.auctionshop.constant.ItemSellStatus).Sell}">
-                <div  class="sell-cancel-btn" th:data-item-name="${item.name}"
-                     th:data-item-type="${item.type}"
-                     th:data-item-stat="${item.itemStat}"
-                     th:data-item-img="${item.itemImg.imgUrl}"
-                     th:data-item-id ="${item.id}"
-                     style="cursor: pointer">
-                    <img th:src="@{/img/{img}.png(img=${item.itemImg.imgUrl})}"
-                         style="width: 30px; height: 30px; margin-left: 10px;" />
+            <div class ="item-list" th:each="item : ${items}" th:if="${item.sellStatus != T(com.example.auctionshop.constant.ItemSellStatus).NotSell}">
+
+                <img th:src="@{/img/{img}.png(img=${item.itemImg.imgUrl})}"
+                        class ="item-img-list" />
+
+                <div th:text="${item.name}"> </div>
+
+                <div th:text="${item.stock_number}"></div>
+
+                <div  class="sell-cancel-btn"
+                      th:data-item-name="${item.name}"
+                      th:data-item-type="${item.type}"
+                      th:data-item-stat="${item.itemStat}"
+                      th:data-item-img="${item.itemImg.imgUrl}"
+                      th:data-item-id ="${item.id}"
+                      style="cursor: pointer">
+
+                      <div th:if = "${item.sellStatus
+                       == T(com.example.auctionshop.constant.ItemSellStatus).Sell}">
+                        회수
+                      </div>
+
+                    <div th:if = "${item.sellStatus
+                    == T(com.example.auctionshop.constant.ItemSellStatus).Complete}">
+                        완료
+                    </div>
+
                 </div>
             </div>
         </div>

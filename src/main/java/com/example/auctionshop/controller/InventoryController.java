@@ -33,7 +33,6 @@ public class InventoryController {
     private final MemberService memberService;
 
     private final ItemService itemService;
-    private final StoreItemService storeItemService;
 
     @GetMapping(value = "/sell")
     public String inventoryForm(Model model , Principal principal)
@@ -68,6 +67,7 @@ public class InventoryController {
         return "inventory/complete";
     }
 
+    //아이템 거래소에서 취소할때
     @PostMapping(value = "/cancelitem")
     public @ResponseBody ResponseEntity cancelItem(@RequestBody Map<String , Object> request)
     {

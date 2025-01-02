@@ -365,6 +365,39 @@ searchTable*/
     top:100px;
 }
 
+.item-list{
+    outline:  auto;
+    width: 50%;
+    height: 50%;
+    display: flex;
+    position: relative;
+    left: 25%;
+    justify-content: center;
+    align-items: center;
+    gap : 120px
+}
+
+.item-list img
+{
+    width: 75px;
+    height: 80%;
+    position: relative;;
+}
+
+
+.sell-cancel-btn
+{
+    width: 75px;
+    height: 85%;
+    background-color: #555555;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+
 .sell-popup img , .popup img {
     display: block;
     margin: 0 auto;
@@ -456,6 +489,8 @@ searchTable*/
     align-content: flex-start;
     overflow-y: auto;
     max-height: 80vh;
+    outline: auto;
+    color :white;
 }
 
 
