@@ -104,13 +104,13 @@ public class SearchController {
         PageRequest pageRequest = PageRequest.of(page, 12);
 
         // 페이지네이션 처리
-        Page<CompleteItem> sellItemsPage = completeItemService.getCompleteItems(pageRequest, completeItems);
+        Page<CompleteItem> compleItemPage = completeItemService.getCompleteItems(pageRequest, completeItems);
 
         // 모델에 sellItemsPage (Page 객체)를 추가
-        model.addAttribute("sellItems", sellItemsPage);
+        model.addAttribute("completeItem", compleItemPage);
 
-        model.addAttribute("currentPage", sellItemsPage.getNumber());
-        model.addAttribute("totalPages", sellItemsPage.getTotalPages());
+        model.addAttribute("currentPage", compleItemPage.getNumber());
+        model.addAttribute("totalPages", compleItemPage.getTotalPages());
 
         return "item/price"; // 'item/search.html'로 이동
     }
@@ -182,20 +182,23 @@ public class SearchController {
 
         int itemPrice = (int)(orderDto.getPrice() * orderDto.getStock());
 
-
         if(user.getMeso() < itemPrice)
         {
             return new ResponseEntity<String>("메소가 적습니다.",HttpStatus.BAD_REQUEST);
         }
         memberService.updateMemberMeso(user,(int)itemPrice);
 
-        StoreItem storeItem = storeItemService.findById(orderDto.getId());
+        StoreItem storeItem = storeItemService.findByItemId(orderDto.getId());
 
         storeItemService.UpdateStock(storeItem,orderDto.getStock());
 
         CompleteItem cItem = new CompleteItem();
-        cItem.setStoreItem(storeItem);
         cItem.setCount(orderDto.getStock());
+        cItem.setPrice(orderDto.getPrice());
+        cItem.setItemStat(orderDto.getItemStat());
+        cItem.setItemId(orderDto.getItemId());
+        cItem.setItemImg(orderDto.getItemImg());
+        cItem.setName(orderDto.getName());
         completeItemService.AddCompleteItem(cItem);
 
         return new ResponseEntity<Long>(orderDto.getId(), HttpStatus.OK);

@@ -22,4 +22,8 @@ public interface StoreItemRepository  extends JpaRepository<StoreItem, Integer> 
                                      @Param("sellStatus") ItemSellStatus sellStatus);
 
     StoreItem findByItem_Id(Long itemId);
+
+    List<StoreItem> findStoreItemsByInventoryId(Long inventoryId);
+
+    StoreItem findStoreItemById(Long storeItemId);
 }

@@ -129,33 +129,33 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:each="item : ${sellItems}"  th:if="${item.item.stock_number >= 1}"  class="item-row" data-bs-toggle="modal" data-bs-target="#itemModal">
+        <tr th:each="item : ${sellItems}"  th:if="${item.getStoreitem().item.stock_number >= 1}"  class="item-row" data-bs-toggle="modal" data-bs-target="#itemModal">
             <td class="hover-item">
-                <img th:src="@{/img/{img}.png(img=${item.item.itemImg.imgUrl})}"
+                <img th:src="@{/img/{img}.png(img=${item.getStoreitem().item.itemImg.imgUrl})}"
                      alt="Item Image"
                      style="width: 15px; height: 15px; margin-left: 10px;" />
-                <span th:text="${item.item.name}">아이템 이름</span>
+                <span th:text="${item.getStoreitem().item.name}">아이템 이름</span>
 
                 <!-- 숨겨진 팝업 -->
                 <div class="popup">
-                    <img th:src="@{/img/{img}.png(img=${item.item.itemImg.imgUrl})}"
+                    <img th:src="@{/img/{img}.png(img=${item.getStoreitem().item.itemImg.imgUrl})}"
                          alt="Item Image"
                          style="width: 100px; height: 100px;" />
-                    <p th:if="${item.item.itemStat.intel} != null" th:text="'INT: ' + ${item.item.itemStat.intel}"></p>
-                    <p th:if="${item.item.itemStat.dex} != null" th:text="'DEX: ' + ${item.item.itemStat.dex}"></p>
-                    <p th:if="${item.item.itemStat.str} != null" th:text="'STR: ' + ${item.item.itemStat.str}"></p>
-                    <p th:if="${item.item.itemStat.luck} != null" th:text="'LUCK: ' + ${item.item.itemStat.luck}"></p>
-                    <p th:if="${item.item.itemStat.hp} != null" th:text="'hp: ' + ${item.item.itemStat.hp}"></p>
+                    <p th:if="${item.getStoreitem().item.itemStat.intel} != null" th:text="'INT: ' + ${item.getStoreitem().item.itemStat.intel}"></p>
+                    <p th:if="${item.getStoreitem().item.itemStat.dex} != null" th:text="'DEX: ' + ${item.getStoreitem().item.itemStat.dex}"></p>
+                    <p th:if="${item.getStoreitem().item.itemStat.str} != null" th:text="'STR: ' + ${item.getStoreitem().item.itemStat.str}"></p>
+                    <p th:if="${item.getStoreitem().item.itemStat.luck} != null" th:text="'LUCK: ' + ${item.getStoreitem().item.itemStat.luck}"></p>
+                    <p th:if="${item.getStoreitem().item.itemStat.hp} != null" th:text="'hp: ' + ${item.getStoreitem().item.itemStat.hp}"></p>
                 </div>
             </td>
             <td th:text="${item.price}">가격</td>
-            <td th:text="${item.item.stock_number}">개수</td>
+            <td th:text="${item.getStoreitem().item.stock_number}">개수</td>
             <td>
                 <button type="button" class = "modalOpenButton"
                         th:data-price="${item.price}"
-                        th:data-stock="${item.item.stock_number}"
-                        th:data-id="${item.item.id}"
-                        th:data-img ="${item.item.itemImg.imgUrl}"
+                        th:data-stock="${item.getStoreitem().item.stock_number}"
+                        th:data-id="${item.getStoreitem().item.id}"
+                        th:data-img ="${item.getStoreitem().item.itemImg.imgUrl}"
                         onclick="getItem(this)">
                     구매
                 </button> </td>

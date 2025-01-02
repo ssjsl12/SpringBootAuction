@@ -15,10 +15,20 @@ public class CompleteItem {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "store_item_id")
-    private StoreItem storeItem ;
+    private Long itemId;
 
-    Long count;
+    private String itemImg;
+
+    private Long count;
+
+    private String name;
+
+    private Long price;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "item_stat_id")
+    private ItemStat itemStat;
+
+
 
 }

@@ -3,8 +3,10 @@ package com.example.auctionshop.service;
 import com.example.auctionshop.entity.Item;
 import com.example.auctionshop.entity.ItemInventory;
 import com.example.auctionshop.entity.Member;
+import com.example.auctionshop.entity.StoreItem;
 import com.example.auctionshop.repository.InventoryRepository;
 import com.example.auctionshop.repository.ItemRepository;
+import com.example.auctionshop.repository.StoreItemRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
@@ -22,8 +24,9 @@ public class InventoryService
       public final InventoryRepository inventoryRepository;
 
       public final ItemRepository itemRepository;
+    private final StoreItemRepository storeItemRepository;
 
-      public ItemInventory saveInventory(ItemInventory inventory)
+    public ItemInventory saveInventory(ItemInventory inventory)
       {
 
           validateDuplicateMember(inventory.getMember());
@@ -43,6 +46,13 @@ public class InventoryService
     public List<Item> getItems(ItemInventory inventory)
     {
         List<Item> items = itemRepository.findItemsByInventoryId(inventory.getId());
+        return items;
+    }
+
+    public List<StoreItem> getStoreItems(ItemInventory inventory)
+    {
+        List<StoreItem> items = storeItemRepository.findStoreItemsByInventoryId(inventory.getId());
+
         return items;
     }
 

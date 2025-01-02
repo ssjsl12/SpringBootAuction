@@ -21,8 +21,6 @@ public class ItemService {
 
     @Autowired
     private  ItemRepository itemRepository;
-    @Autowired
-    private ItemImgRepository itemImgRepository;
 
     @Autowired
     private StoreItemRepository storeItemRepository;
@@ -33,18 +31,6 @@ public class ItemService {
     public Item findById(Long id) {
 
         return itemRepository.findItemById(id);
-    }
-
-    public void UpdateStock(Item item , Long stock)
-    {
-        item.setStock_number(item.getStock_number() - stock);
-
-        if(item.getStock_number() <= 0)
-        {
-            item.setSellStatus(ItemSellStatus.Complete);
-        }
-
-        itemRepository.save(item);
     }
 
     public List<Item> findBySellItems(ItemSellStatus status)
@@ -79,24 +65,6 @@ public class ItemService {
         return new PageImpl<>(pageContent, pageRequest, items.size());
     }
 
-    public void changeItemStatus(Long itemId , ItemSellStatus status)
-    {
-        Item item = itemRepository.findItemById(itemId);
-        StoreItem sItem = storeItemRepository.findByItem_Id(itemId);
-        WishItem wItem = wishItemRepository.findByItemId(itemId);
-
-        item.setSellStatus(status);
-        sItem.setSellStatus(status);
-
-        if(wItem != null)
-        {
-            wishItemRepository.delete(wItem);
-        }
-
-        itemRepository.save(item);
-        storeItemRepository.save(sItem);
-
-    }
 
 
 }

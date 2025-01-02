@@ -27,4 +27,8 @@ public class StoreItem {
     @Enumerated(EnumType.STRING)
     private ItemSellStatus sellStatus;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "item_inventory_id")
+    private ItemInventory inventory;
+
 }

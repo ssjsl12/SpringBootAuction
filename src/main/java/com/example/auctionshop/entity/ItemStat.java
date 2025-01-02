@@ -1,5 +1,7 @@
 package com.example.auctionshop.entity;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -9,7 +11,6 @@ import lombok.ToString;
 @Table(name = "itemstat")
 @Getter
 @Setter
-@ToString
 public class ItemStat
 {
     @Id
@@ -30,5 +31,9 @@ public class ItemStat
     //마나
     private Long mp;
 
-
+    @Override
+    public String toString() {
+        return "ItemStat(id=" + id + ", intel=" + intel + ", luck=" + luck +
+                ", dex=" + dex + ", str=" + str + ", hp=" + hp + ", mp=" + mp + ")";
+    }
 }

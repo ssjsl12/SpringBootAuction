@@ -74,13 +74,7 @@ class ItemServiceTest {
             item.setItemStat(itemStat);
             item.setItemImg(itemImg);
 
-            StoreItem storeItem = new StoreItem();
-            storeItem.setCount(1L + i);
-            storeItem.setPrice(1000 + i);
-            storeItem.setItem(item);
-            storeItem.setSellStatus(ItemSellStatus.Sell);
 
-            storeItemRepository.save(storeItem);
             itemStatRepository.save(itemStat);
             itemImgRepository.save(itemImg);
             itemRepository.save(item);

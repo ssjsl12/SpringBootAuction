@@ -17,16 +17,16 @@
 
         <div class="pagination">
             <!-- 이전 페이지 링크 -->
-            <a th:href="@{/item/price/{page}(page=${sellItems.number - 1})}" th:if="${sellItems.hasPrevious()}">&laquo; 이전</a>
+            <a th:href="@{/item/price/{page}(page=${completeItem.number - 1})}" th:if="${completeItem.hasPrevious()}">&laquo; 이전</a>
 
             <!-- 현재 페이지 / 총 페이지 수 -->
             <span class="page-info">
-        <span th:text="${sellItems.number + 1}"></span> /
-        <span th:text="${sellItems.totalPages}"></span>
+        <span th:text="${completeItem.number + 1}"></span> /
+        <span th:text="${completeItem.totalPages}"></span>
     </span>
 
             <!-- 다음 페이지 링크 -->
-            <a th:href="@{/item/price/{page}(page=${sellItems.number + 1})}" th:if="${sellItems.hasNext()}">다음 &raquo;</a>
+            <a th:href="@{/item/price/{page}(page=${completeItem.number + 1})}" th:if="${completeItem.hasNext()}">다음 &raquo;</a>
         </div>
 
 
@@ -40,28 +40,28 @@
             </tr>
             </thead>
             <tbody>
-            <tr th:each="item : ${sellItems}">
+            <tr th:each="item : ${completeItem}">
                 <td class="hover-item">
-                    <img th:src="@{/img/{img}.png(img=${item.getStoreItem().item.itemImg.imgUrl})}"
+                    <img th:src="@{/img/{img}.png(img=${item.itemImg})}"
                          alt="Item Image"
                          style="width: 15px; height: 15px; margin-left: 10px;" />
-                    <span th:text="${item.getStoreItem().item.name}">아이템 이름</span>
+                    <span th:text="${item.name}">아이템 이름</span>
 
                     <!-- 숨겨진 팝업 -->
                     <div class="popup">
-                        <img th:src="@{/img/{img}.png(img=${item.getStoreItem().item.itemImg.imgUrl})}"
+                        <img th:src="@{/img/{img}.png(img=${item.itemImg})}"
                              alt="Item Image"
                              style="width: 100px; height: 100px;" />
-                        <p th:if="${item.getStoreItem().item.itemStat.intel} != null" th:text="'INT: ' + ${item.getStoreItem().item.itemStat.intel}"></p>
-                        <p th:if="${item.getStoreItem().item.itemStat.dex} != null" th:text="'DEX: ' + ${item.getStoreItem().item.itemStat.dex}"></p>
-                        <p th:if="${item.getStoreItem().item.itemStat.str} != null" th:text="'STR: ' + ${item.getStoreItem().item.itemStat.str}"></p>
-                        <p th:if="${item.getStoreItem().item.itemStat.luck} != null" th:text="'LUCK: ' + ${item.getStoreItem().item.itemStat.luck}"></p>
-                        <p th:if="${item.getStoreItem().item.itemStat.hp} != null" th:text="'HP: ' + ${item.getStoreItem().item.itemStat.hp}"></p>
-                        <p th:if="${item.getStoreItem().item.itemStat.mp} != null" th:text="'MP: ' + ${item.getStoreItem().item.itemStat.mp}"></p>
+                        <p th:if="${item.itemStat.intel} != null" th:text="'INT: ' + ${item.itemStat.intel}"></p>
+                        <p th:if="${item.itemStat.dex} != null" th:text="'DEX: ' + ${item.itemStat.dex}"></p>
+                        <p th:if="${item.itemStat.str} != null" th:text="'STR: ' + ${item.itemStat.str}"></p>
+                        <p th:if="${item.itemStat.luck} != null" th:text="'LUCK: ' + ${item.itemStat.luck}"></p>
+                        <p th:if="${item.itemStat.hp} != null" th:text="'HP: ' + ${item.itemStat.hp}"></p>
+                        <p th:if="${item.itemStat.mp} != null" th:text="'MP: ' + ${item.itemStat.mp}"></p>
 
                     </div>
                 </td>
-                <td th:text="${item.getStoreItem().price}">가격</td>
+                <td th:text="${item.price}">가격</td>
                 <td th:text="${item.count}">개수</td>
             </tr>
             </tbody>

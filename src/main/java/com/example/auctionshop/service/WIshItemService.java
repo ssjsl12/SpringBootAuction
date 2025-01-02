@@ -1,9 +1,6 @@
 package com.example.auctionshop.service;
 
-import com.example.auctionshop.entity.CompleteItem;
-import com.example.auctionshop.entity.Item;
-import com.example.auctionshop.entity.Member;
-import com.example.auctionshop.entity.WishItem;
+import com.example.auctionshop.entity.*;
 import com.example.auctionshop.repository.WishItemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -27,12 +24,12 @@ public class WIshItemService {
        return items;
     }
 
-    public void insertWishItem(Item item, Member member , int price)
+    public void insertWishItem(StoreItem item, Member member , int price)
     {
         WishItem wishItem = new WishItem();
         wishItem.setMember(member);
         wishItem.setPrice(price);
-        wishItem.setItem(item);
+        wishItem.setStoreitem(item);
 
         wishItemRepository.save(wishItem);
     }

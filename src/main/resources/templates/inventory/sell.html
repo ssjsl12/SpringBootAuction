@@ -45,6 +45,7 @@
                 const itemName = $(this).data("item-name");
                 const itemImgUrl = $(this).data("item-img");
                 const itemId = $(this).data("item-id");
+                const itemStock = $(this).data("item-stock");
                 // sell-form에 아이템 정보 표시
                 const sellForm = $(".sell-form");
                 sellForm.empty();  // 이전 내용 지우기
@@ -54,6 +55,17 @@
         <div class="item-info" data-item-id = "${itemId}">
             <h3>아이템 이름: ${itemName}</h3>
             <img src="/img/${itemImgUrl}.png" alt="${itemName}" style="width: 100px; height: 100px;" />
+
+              <div class="stock-field">
+            <label for="stock-number">스톡 넘버:</label>
+            <input type="number" id="stock-number" name="stock-number" value="${itemStock || ''}" placeholder="스톡 넘버 입력" />
+             </div>
+
+                <div class = "price_field">
+            <label for="price">가격:</label>
+            <input type="number" id="price" name="price" placeholder="가격 입력" />
+                </div>
+
             <button class="sell-item">판매</button>
         </div>
     `;
@@ -67,12 +79,13 @@
                 // 클릭한 버튼의 부모 div 요소에서 아이템 정보를 가져옵니다.
                 var parentDiv = $(this).closest(".item-info"); // 버튼의 부모 div 요소 찾기
                 var itemId = parentDiv.data("item-id");
-
+                const stockNumber = $("#stock-number").val(); //
+                const price = $("#price").val()
                 $.ajax({
                     url: '/inventory/sell', // 서버에 요청할 URL
                     type: 'POST',  // 요청 방식
                     contentType: 'application/json',  // 요청 타입
-                    data: JSON.stringify({ itemId: itemId }),  // 아이템 ID만 전송
+                    data: JSON.stringify({ itemId: itemId  , itemCount : stockNumber , itemPrice :price}),  // 아이템 ID만 전송
                     success: function(response) {
                         alert(response);
                         location.href = '/inventory/sell';
@@ -153,13 +166,13 @@
 
          <div class = "item-lists">
 
-             <div th:each="item : ${items}"  th:if ="${item.sellStatus == T(com.example.auctionshop.constant.ItemSellStatus).NotSell}" th:data-type="${item.type}" class = "item-box">
-                 <div class="item-details" th:data-item-name="${item.name}" th:data-item-id ="${item.getId()}"
+             <div th:each="item : ${items}" th:if="${item.sellStatus == T(com.example.auctionshop.constant.ItemSellStatus).NotSell && item.stock_number != 0}" th:data-type="${item.type}" class = "item-box">
+                 <div class="item-details" th:data-item-name="${item.name}" th:data-item-id ="${item.getId()}" th:data-item-stock = "${item.getStock_number()}"
                      th:data-item-type="${item.type}" th:data-item-stat="${item.itemStat}" th:data-item-img="${item.itemImg.imgUrl}"
                       style="cursor: pointer" >
                      <img th:src="@{/img/{img}.png(img=${item.itemImg.imgUrl})}"
                           style="width: 30px; height: 30px; margin-left: 10px;" />
-
+                     <div th:text="${item.stock_number}"></div>
                  </div>
              </div>
 
@@ -177,20 +190,20 @@
     <div class="sell-state-form">
         <div class="item-lists-sell">
             <!-- 판매 상태인 항목을 반복 출력 -->
-            <div class ="item-list" th:each="item : ${items}" th:if="${item.sellStatus != T(com.example.auctionshop.constant.ItemSellStatus).NotSell}">
+            <div class ="item-list" th:each="item : ${sItems}" th:if="${item.sellStatus == T(com.example.auctionshop.constant.ItemSellStatus).Sell}">
 
-                <img th:src="@{/img/{img}.png(img=${item.itemImg.imgUrl})}"
+                <img th:src="@{/img/{img}.png(img=${item.getItem().itemImg.imgUrl})}"
                         class ="item-img-list" />
 
-                <div th:text="${item.name}"> </div>
+                <div th:text="${item.getItem().name}"> </div>
 
-                <div th:text="${item.stock_number}"></div>
+                <div th:text="${item.count}"></div>
 
                 <div  class="sell-cancel-btn"
-                      th:data-item-name="${item.name}"
-                      th:data-item-type="${item.type}"
-                      th:data-item-stat="${item.itemStat}"
-                      th:data-item-img="${item.itemImg.imgUrl}"
+                      th:data-item-name="${item.getItem().name}"
+                      th:data-item-type="${item.getItem().type}"
+                      th:data-item-stat="${item.getItem().itemStat}"
+                      th:data-item-img="${item.getItem().itemImg.imgUrl}"
                       th:data-item-id ="${item.id}"
                       style="cursor: pointer">
 
@@ -198,11 +211,6 @@
                        == T(com.example.auctionshop.constant.ItemSellStatus).Sell}">
                         회수
                       </div>
-
-                    <div th:if = "${item.sellStatus
-                    == T(com.example.auctionshop.constant.ItemSellStatus).Complete}">
-                        완료
-                    </div>
 
                 </div>
             </div>

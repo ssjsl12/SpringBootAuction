@@ -1,12 +1,10 @@
 package com.example.auctionshop.controller;
 
 import com.example.auctionshop.dto.WishItemDto;
-import com.example.auctionshop.entity.CompleteItem;
-import com.example.auctionshop.entity.Item;
-import com.example.auctionshop.entity.Member;
-import com.example.auctionshop.entity.WishItem;
+import com.example.auctionshop.entity.*;
 import com.example.auctionshop.service.ItemService;
 import com.example.auctionshop.service.MemberService;
+import com.example.auctionshop.service.StoreItemService;
 import com.example.auctionshop.service.WIshItemService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -33,6 +31,7 @@ public class CartController
     private MemberService memberService;
     private WIshItemService wishItemService;
     private ItemService itemService;
+    private StoreItemService storeItemService;
 
     @GetMapping("/wish/{page}")
     public String wishItem(@PathVariable int page, Model model , Principal principal)
@@ -62,11 +61,15 @@ public class CartController
         String email = principal.getName();
         Member user = memberService.findByEmail(email);
         List<WishItem> items = wishItemService.getWishItems(user);
-        Item item = itemService.findById(wishItemDto.getId());
+        StoreItem item = storeItemService.findByItemId(wishItemDto.getId());
+
+        log.info(wishItemDto.getId());
+
+        log.info(item);
 
         for(int i = 0; i < items.size(); i++)
         {
-            if(items.get(i).getItem().getId() == item.getId())
+            if(items.get(i).getStoreitem().getId() == item.getId())
             {
                 return new ResponseEntity<String>("이미 찜한 상품입니다",HttpStatus.BAD_REQUEST);
             }

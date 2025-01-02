@@ -20,7 +20,7 @@ public class CompleteItemService {
 
     public void AddCompleteItem(CompleteItem completeItem)
     {
-            completeItemRepository.save(completeItem);
+        completeItemRepository.save(completeItem);
     }
 
     public List<CompleteItem> findByStatusWithStatItemAnd(StatusFormDto formDto)
@@ -48,5 +48,9 @@ public class CompleteItemService {
         return new PageImpl<>(pageContent, pageRequest, items.size());
     }
 
+    public List<CompleteItem> getItems()
+    {
+        return completeItemRepository.findAll();
+    }
 
 }
