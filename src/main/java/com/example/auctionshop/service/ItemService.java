@@ -35,5 +35,9 @@ public class ItemService {
         itemRepository.save(item);
     }
 
+    public List<Item> findByItemInventory(ItemInventory itemInventory)
+    {
+        return itemRepository.findItemsByInventoryId(itemInventory.getId());
+    }
 
 }

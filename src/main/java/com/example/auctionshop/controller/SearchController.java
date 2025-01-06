@@ -227,20 +227,39 @@ public class SearchController {
         completeItemService.AddCompleteItem(cItem);
 
         Item tempItem = itemService.findById(orderDto.getItemId());
-
-        Item item = new Item();
-
-        item.setItemImg(tempItem.getItemImg());
-        item.setStock_number(orderDto.getStock());
-        item.setItemStat(orderDto.getItemStat());
-        item.setName(orderDto.getName());
-        item.setSellStatus(ItemSellStatus.NotSell);
-        item.setType(ItemType.Equip);
         ItemInventory itemInventory = inventoryService.getInventory(user);
 
-        item.setInventory(itemInventory);
+        List<Item> dupleItem = itemService.findByItemInventory(itemInventory);
 
-        itemService.save(item);
+        boolean isCompare = false;
+
+        for(int i = 0 ; i < dupleItem.size() ; i++)
+        {
+            if(dupleItem.get(i).compareItem(tempItem.getItemStat(),tempItem.getName()))
+            {
+
+                isCompare = true;
+
+                dupleItem.get(i).setStock_number(orderDto.getStock() + dupleItem.get(i).getStock_number());
+                itemService.save(dupleItem.get(i));
+
+            }
+        }
+
+        if(!isCompare)
+        {
+            Item item = new Item();
+            item.setItemImg(tempItem.getItemImg());
+            item.setStock_number(orderDto.getStock());
+            item.setItemStat(orderDto.getItemStat());
+            item.setName(orderDto.getName());
+            item.setSellStatus(ItemSellStatus.NotSell);
+            item.setType(ItemType.Equip);
+            item.setInventory(itemInventory);
+
+            itemService.save(item);
+        }
+
 
         return new ResponseEntity<Long>(orderDto.getId(), HttpStatus.OK);
     }

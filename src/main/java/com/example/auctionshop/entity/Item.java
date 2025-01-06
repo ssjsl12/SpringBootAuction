@@ -42,5 +42,19 @@ public class Item {
     private ItemStat itemStat;
 
 
+    //비교
+    public boolean compareItem(ItemStat itemStat , String name)
+    {
+        if(this.itemStat == itemStat
+        && this.name.equals(name))
+        {
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
+
 
 }
