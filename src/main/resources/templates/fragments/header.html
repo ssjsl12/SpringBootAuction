@@ -5,8 +5,8 @@
 <div th:fragment="header">
     <div class="back-ground">
         <a href="/main">MapleAuction</a>
-        <a class = "logout" href="/members/logout">로그아웃</a>
-
+        <a sec:authorize="isAuthenticated()" class = "logout" href="/members/logout">로그아웃</a>
+        <a sec:authorize="isAnonymous()" class = "logout" href ="/members/login">로그인</a>
         <form class="searchForm" th:action="@{/}" method="get">
             <div class="formHeader">
                 <label class="searchLabel" for="searchQuery">빠른 검색</label>
@@ -15,8 +15,8 @@
                     <button type="submit">Search</button>
                 </div>
                 <div class="userInfo">
-                    <span class="userId">ID: <strong>user123</strong></span>
-                    <span class="userCash">Cash: <strong>₩100,000</strong></span>
+                    <span class="userId" sec:authorize="isAuthenticated()">ID: <strong th:text="${user}"> </strong></span>
+                    <span class="userCash" sec:authorize="isAuthenticated()">Cash: <strong th:text="${cash}"></strong></span>
                 </div>
             </div>
         </form>
@@ -36,7 +36,7 @@
                     <a href="/inventory/sell">판매</a>
                 </li>
                 <li>
-                    <a href="/inventory/complete">완료</a>
+                    <a href="/inventory/complete/0">완료</a>
                 </li>
             </ul>
 

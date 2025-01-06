@@ -73,4 +73,9 @@ public class MemberService implements UserDetailsService {
         memberRepository.save(member);
      }
 
+     public void updateMemberMeso(Member member)
+     {
+         memberRepository.save(member);
+     }
+
 }

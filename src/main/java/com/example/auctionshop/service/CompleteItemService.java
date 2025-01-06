@@ -53,4 +53,14 @@ public class CompleteItemService {
         return completeItemRepository.findAll();
     }
 
+    public void setComplteItemStatus(Long id , int status)
+    {
+        CompleteItem item = completeItemRepository.findById(id).get();
+
+        item.setStatus(status);
+
+        completeItemRepository.save(item);
+    }
+
+
 }

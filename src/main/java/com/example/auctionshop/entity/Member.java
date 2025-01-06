@@ -44,4 +44,12 @@ public class Member extends BaseEntity
 
         return member;
     }
+
+    public void inComeMeso(int meso)
+    {
+        this.meso += meso;
+    }
+
+
+
 }

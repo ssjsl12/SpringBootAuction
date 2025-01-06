@@ -29,6 +29,6 @@ public class CompleteItem {
     @JoinColumn(name = "item_stat_id")
     private ItemStat itemStat;
 
-
+    private int status;
 
 }

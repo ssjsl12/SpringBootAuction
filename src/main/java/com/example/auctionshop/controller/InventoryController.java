@@ -50,6 +50,9 @@ public class InventoryController {
         List<StoreItem> sItem = inventoryService.getStoreItems(inventory);
         model.addAttribute("items", item);
         model.addAttribute("sItems" ,sItem);
+        model.addAttribute("user", user.getName());
+        model.addAttribute("cash",user.getMeso());
+
         return "inventory/sell";
     }
 

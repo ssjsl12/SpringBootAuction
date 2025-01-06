@@ -33,11 +33,11 @@ public class Item {
     @JoinColumn(name = "item_inventory_id")
     private ItemInventory inventory;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "item_img_id")
     private ItemImg itemImg;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "item_stat_id")
     private ItemStat itemStat;
 

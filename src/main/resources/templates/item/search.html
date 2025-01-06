@@ -174,9 +174,8 @@
 
             <!-- 현재 페이지 / 총 페이지 수 -->
             <span class="page-info">
-        <span th:text="${sellItems.number + 1}"></span> /
-        <span th:text="${sellItems.totalPages}"></span>
-    </span>
+              <span th:text="${sellItems.number + 1}"></span> / <span th:text="${sellItems.totalPages}"></span>
+             </span>
 
             <!-- 다음 페이지 링크 -->
             <a th:href="@{/item/search/{page}(page=${sellItems.number + 1})}" th:if="${sellItems.hasNext()}">다음 &raquo;</a>

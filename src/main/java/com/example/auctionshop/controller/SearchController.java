@@ -1,18 +1,13 @@
 package com.example.auctionshop.controller;
 
 import com.example.auctionshop.constant.ItemSellStatus;
+import com.example.auctionshop.constant.ItemType;
 import com.example.auctionshop.dto.MemberFormDto;
 import com.example.auctionshop.dto.OrderDto;
 import com.example.auctionshop.dto.StatusFormDto;
-import com.example.auctionshop.entity.CompleteItem;
-import com.example.auctionshop.entity.Item;
-import com.example.auctionshop.entity.Member;
-import com.example.auctionshop.entity.StoreItem;
+import com.example.auctionshop.entity.*;
 import com.example.auctionshop.repository.ItemRepository;
-import com.example.auctionshop.service.CompleteItemService;
-import com.example.auctionshop.service.ItemService;
-import com.example.auctionshop.service.MemberService;
-import com.example.auctionshop.service.StoreItemService;
+import com.example.auctionshop.service.*;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -43,18 +38,20 @@ public class SearchController {
     private StoreItemService storeItemService;
     private MemberService memberService;
     private CompleteItemService completeItemService;
+    private InventoryService inventoryService;
+    private ItemService itemService;
 
     @GetMapping("/search/{page}")
     public String search(@PathVariable int page
             ,HttpSession session
-            , Model model ,@Valid StatusFormDto statusFormDto) {
+            , Model model ,@Valid StatusFormDto statusFormDto , Principal principal) {
         // 'ItemSellStatus.Sell' 상태에 해당하는 아이템 목록을 가져옵니다.
 
         if(session.getAttribute("statusFormDto") != null)
             statusFormDto = (StatusFormDto)session.getAttribute("statusFormDto");
 
         List<StoreItem> sellItems = new ArrayList<>();
-
+        List<StoreItem> tempsellItems = new ArrayList<>();
         if(statusFormDto.getCondition() == "OR")
         {
             sellItems = storeItemService.findByStatusWithStatItemOR(statusFormDto);
@@ -64,12 +61,26 @@ public class SearchController {
             sellItems = storeItemService.findByStatusWithStatItemAnd(statusFormDto);
         }
 
+        String email = principal.getName();
+
+        Member user = memberService.findByEmail(email);
+
+        ItemInventory inventory = inventoryService.getInventory(user);
+
+        for(int i = 0 ; i < sellItems.size(); ++i)
+        {
+            if(sellItems.get(i).getInventory().getId() != inventory.getId())
+            {
+                tempsellItems.add(sellItems.get(i));
+            }
+        }
+
 
         // PageRequest를 사용하여 해당 페이지를 요청 (10개씩 페이지 처리)
         PageRequest pageRequest = PageRequest.of(page, 12);
 
         // 페이지네이션 처리
-        Page<StoreItem> sellItemsPage = storeItemService.getSellItems(pageRequest, sellItems);
+        Page<StoreItem> sellItemsPage = storeItemService.getSellItems(pageRequest, tempsellItems);
 
 
 
@@ -80,11 +91,13 @@ public class SearchController {
         model.addAttribute("currentPage", sellItemsPage.getNumber());
         model.addAttribute("totalPages", sellItemsPage.getTotalPages());
 
+        getUser(principal,model);
+
         return "item/search"; // 'item/search.html'로 이동
     }
 
     @GetMapping("/price/{page}")
-    public String price(@PathVariable int page ,HttpSession session , @Valid  StatusFormDto statusFormDto, Model model)
+    public String price(@PathVariable int page ,HttpSession session , @Valid  StatusFormDto statusFormDto, Model model ,Principal principal)
     {
 
         if(session.getAttribute("statusFormDto") != null)
@@ -111,6 +124,8 @@ public class SearchController {
 
         model.addAttribute("currentPage", compleItemPage.getNumber());
         model.addAttribute("totalPages", compleItemPage.getTotalPages());
+
+        getUser(principal,model);
 
         return "item/price"; // 'item/search.html'로 이동
     }
@@ -149,25 +164,30 @@ public class SearchController {
     //타이틀을 눌렀을때 status 초기화
 
     @GetMapping("/search")
-    public String titleSearch(HttpSession session, Model model)
+    public String titleSearch(HttpSession session, Model model , Principal principal)
     {
         StatusFormDto statusFormDto = new StatusFormDto();
 
         log.info(statusFormDto.toString());
 
         session.setAttribute("statusFormDto", statusFormDto);
+
+        getUser(principal,model);
 
         return "redirect:/item/search/0";
     }
 
     @GetMapping("/price")
-    public String titlePrice(HttpSession session, Model model)
+    public String titlePrice(HttpSession session, Model model , Principal principal)
     {
         StatusFormDto statusFormDto = new StatusFormDto();
 
         log.info(statusFormDto.toString());
 
         session.setAttribute("statusFormDto", statusFormDto);
+
+
+        getUser(principal,model);
 
         return "redirect:/item/price/0";
     }
@@ -186,12 +206,17 @@ public class SearchController {
         {
             return new ResponseEntity<String>("메소가 적습니다.",HttpStatus.BAD_REQUEST);
         }
+
+        //유저 메소 업데이트
         memberService.updateMemberMeso(user,(int)itemPrice);
 
         StoreItem storeItem = storeItemService.findByItemId(orderDto.getId());
 
+        //거래소 아이템 개수 업데이트
         storeItemService.UpdateStock(storeItem,orderDto.getStock());
 
+
+        //시세 추가
         CompleteItem cItem = new CompleteItem();
         cItem.setCount(orderDto.getStock());
         cItem.setPrice(orderDto.getPrice());
@@ -201,8 +226,38 @@ public class SearchController {
         cItem.setName(orderDto.getName());
         completeItemService.AddCompleteItem(cItem);
 
+        Item tempItem = itemService.findById(orderDto.getItemId());
+
+        Item item = new Item();
+
+        item.setItemImg(tempItem.getItemImg());
+        item.setStock_number(orderDto.getStock());
+        item.setItemStat(orderDto.getItemStat());
+        item.setName(orderDto.getName());
+        item.setSellStatus(ItemSellStatus.NotSell);
+        item.setType(ItemType.Equip);
+        ItemInventory itemInventory = inventoryService.getInventory(user);
+
+        item.setInventory(itemInventory);
+
+        itemService.save(item);
+
         return new ResponseEntity<Long>(orderDto.getId(), HttpStatus.OK);
     }
+
+    public void getUser(Principal principal,Model model)
+    {
+        String email = principal.getName();
+
+        if(!email.isEmpty())
+        {
+            Member user = memberService.findByEmail(email);
+            model.addAttribute("user", user.getName());
+            model.addAttribute("cash",user.getMeso());
+        }
+
+    }
+
 
 
 }

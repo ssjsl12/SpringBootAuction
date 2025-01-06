@@ -1,7 +1,6 @@
 package com.example.auctionshop.controller;
 
 
-import com.example.auctionshop.repository.ItemRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Controller;
@@ -12,8 +11,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 @RequiredArgsConstructor
 @Log4j2
 public class MainController {
-
-    ItemRepository itemRespository;
 
     @GetMapping(value = "/main")
     public String main(Model model) {

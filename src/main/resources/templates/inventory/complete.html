@@ -2,11 +2,114 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layouts/layout1}">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
 
-</body>
-</html>
+<th:block layout:fragment="script">
+    <script th:inline="javascript">
+
+        $(document).ready(function ()
+        {
+
+           $(".complete-item").on("click", function()
+           {
+                const itemCount = $(this).data("item-count");
+                const itemPrice = $(this).data("item-price");
+                const itemId = $(this).data("item-id");
+                const itemStatus = $(this).data("data-status");
+
+               var paramData =
+                   {
+                       itemCount: itemCount,
+                       itemPrice: itemPrice,
+                       itemId: itemId,
+                       itemStatus : itemStatus,
+                   }
+
+               var param = JSON.stringify(paramData);
+
+
+                $.ajax({
+
+                    url:'/inventory/complete',
+                    type:'POST',
+                    contentType:'application/json',
+                    data : param,
+                    success : function(response)
+                    {
+                        alert(response);
+                        location.href = '/inventory/complete/0'
+                    },
+                    error : function(xhr, status ,error)
+                    {
+                        alert(error);
+                    }
+                })
+           });
+
+
+
+        });
+
+
+    </script>
+</th:block>
+<div layout:fragment="content">
+
+    <div class="pagination">
+        <!-- 이전 페이지 링크 -->
+        <a th:href="@{/item/search/{page}(page=${completeItem.number - 1})}" th:if="${completeItem.hasPrevious()}">&laquo; 이전</a>
+
+        <!-- 현재 페이지 / 총 페이지 수 -->
+        <span class="page-info">
+              <span th:text="${completeItem.number + 1}"></span> / <span th:text="${completeItem.totalPages}"></span>
+             </span>
+
+        <!-- 다음 페이지 링크 -->
+        <a th:href="@{/item/search/{page}(page=${completeItem.number + 1})}" th:if="${completeItem.hasNext()}">다음 &raquo;</a>
+    </div>
+
+
+    <table class="searchTable">
+        <thead>
+        <tr>
+            <th>아이템 이름</th>
+            <th>가격</th>
+            <th>개수</th>
+            <th> - </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="item : ${completeItem}">
+            <td class="hover-item">
+                <img th:src="@{/img/{img}.png(img=${item.itemImg})}"
+                     alt="Item Image"
+                     style="width: 15px; height: 15px; margin-left: 10px;" />
+                <span th:text="${item.name}">아이템 이름</span>
+
+                <!-- 숨겨진 팝업 -->
+                <div class="popup">
+                    <img th:src="@{/img/{img}.png(img=${item.itemImg})}"
+                         alt="Item Image"
+                         style="width: 100px; height: 100px;" />
+                    <p th:if="${item.itemStat.intel} != null" th:text="'INT: ' + ${item.itemStat.intel}"></p>
+                    <p th:if="${item.itemStat.dex} != null" th:text="'DEX: ' + ${item.itemStat.dex}"></p>
+                    <p th:if="${item.itemStat.str} != null" th:text="'STR: ' + ${item.itemStat.str}"></p>
+                    <p th:if="${item.itemStat.luck} != null" th:text="'LUCK: ' + ${item.itemStat.luck}"></p>
+                    <p th:if="${item.itemStat.hp} != null" th:text="'HP: ' + ${item.itemStat.hp}"></p>
+                    <p th:if="${item.itemStat.mp} != null" th:text="'MP: ' + ${item.itemStat.mp}"></p>
+
+                </div>
+            </td>
+            <td th:text="${item.price}">가격</td>
+            <td th:text="${item.count}">개수</td>
+            <td><button class = "complete-item"
+                th:data-item-count = "${item.count}"
+                        th:data-item-price = "${item.price}"
+                        th:data-item-page = "${completeItem.number}"
+                        th:data-item-id = "${item.id}"
+                        th:data-item-status = "${item.status}"
+            >회수</button> </td>
+        </tr>
+        </tbody>
+    </table>
+
+</div>

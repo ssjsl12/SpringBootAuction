@@ -52,6 +52,12 @@ public class CartController
         model.addAttribute("totalPages", sellItemsPage.getTotalPages());
 
 
+        if(!email.isEmpty())
+        {
+            model.addAttribute("user", user.getName());
+            model.addAttribute("cash",user.getMeso());
+        }
+
         return "cart/wish";
     }
 
