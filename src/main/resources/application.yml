@@ -37,3 +37,6 @@ logging:
           descriptor:
             sql: trace
 
+kakao:
+  client_id: 4db3e0af6e1d6916f03390586d47359a
+  redirect_uri: http://localhost:8080/auth/kakao/callback
