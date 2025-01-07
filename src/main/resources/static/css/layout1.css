@@ -30,7 +30,6 @@ body {
     box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
     height: 80%;
     position: absolute;
-    top:192px;
     left:0;
 }
 
@@ -43,7 +42,6 @@ body {
 {
     width: 80%;
     position: absolute;
-    top:192px;
     left: 20%;
     background: #555555;
 }
@@ -52,13 +50,12 @@ body {
 {
     width: 100%;
     position: absolute;
-    top:192px;
     background: #555555;
 }
 
 .login-form-content
 {
-    margin-bottom:80%;
+
    margin-top: 10%;
    margin-left: 45%;
    margin-right: 45%;
@@ -546,3 +543,4 @@ searchTable*/
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* 그림자 */
     height: 75px;
 }
+
