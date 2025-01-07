@@ -61,19 +61,29 @@ public class SearchController {
             sellItems = storeItemService.findByStatusWithStatItemAnd(statusFormDto);
         }
 
-        String email = principal.getName();
-
-        Member user = memberService.findByEmail(email);
-
-        ItemInventory inventory = inventoryService.getInventory(user);
-
-        for(int i = 0 ; i < sellItems.size(); ++i)
+        if(principal != null)
         {
-            if(sellItems.get(i).getInventory().getId() != inventory.getId())
+            String email = principal.getName();
+
+            Member user = memberService.findByEmail(email);
+
+            ItemInventory inventory = inventoryService.getInventory(user);
+
+            for(int i = 0 ; i < sellItems.size(); ++i)
             {
-                tempsellItems.add(sellItems.get(i));
+                if(sellItems.get(i).getInventory().getId() != inventory.getId())
+                {
+                    tempsellItems.add(sellItems.get(i));
+                }
             }
+
+            getUser(principal,model);
+
         }
+        else{
+            tempsellItems = sellItems;
+        }
+
 
 
         // PageRequest를 사용하여 해당 페이지를 요청 (10개씩 페이지 처리)
@@ -91,7 +101,7 @@ public class SearchController {
         model.addAttribute("currentPage", sellItemsPage.getNumber());
         model.addAttribute("totalPages", sellItemsPage.getTotalPages());
 
-        getUser(principal,model);
+
 
         return "item/search"; // 'item/search.html'로 이동
     }
@@ -125,6 +135,7 @@ public class SearchController {
         model.addAttribute("currentPage", compleItemPage.getNumber());
         model.addAttribute("totalPages", compleItemPage.getTotalPages());
 
+        if(principal!=null)
         getUser(principal,model);
 
         return "item/price"; // 'item/search.html'로 이동
@@ -172,6 +183,7 @@ public class SearchController {
 
         session.setAttribute("statusFormDto", statusFormDto);
 
+        if(principal != null)
         getUser(principal,model);
 
         return "redirect:/item/search/0";
@@ -186,7 +198,7 @@ public class SearchController {
 
         session.setAttribute("statusFormDto", statusFormDto);
 
-
+        if(principal != null)
         getUser(principal,model);
 
         return "redirect:/item/price/0";
