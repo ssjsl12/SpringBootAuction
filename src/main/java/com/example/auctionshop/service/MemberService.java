@@ -73,7 +73,7 @@ public class MemberService implements UserDetailsService {
         memberRepository.save(member);
      }
 
-     public void updateMemberMeso(Member member)
+     public void updateMember(Member member)
      {
          memberRepository.save(member);
      }

@@ -101,7 +101,7 @@ public class CompleteController {
 
         user.inComeMeso(itemCount * itemPrice);
 
-        memberService.updateMemberMeso(user);
+        memberService.updateMember(user);
 
         completeItemService.setComplteItemStatus(itemId,1);
 
