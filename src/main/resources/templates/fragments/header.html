@@ -4,7 +4,7 @@
 
 <div th:fragment="header">
     <div class="back-ground">
-        <a href="/main">MapleAuction</a>
+        <a href="/main" class = "main-icon">MapleAuction</a>
         <a sec:authorize="isAuthenticated()" class = "logout" href="/members/logout">로그아웃</a>
         <a sec:authorize="isAnonymous()" class = "logout" href ="/members/login">로그인</a>
         <form class="searchForm" th:action="@{/}" method="get">

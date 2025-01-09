@@ -58,7 +58,6 @@ class ItemServiceTest {
             item.setSellStatus(ItemSellStatus.NotSell);
             item.setInventory(inventory);
 
-
             ItemStat itemStat = new ItemStat();
             itemStat.setDex(10L + i);
             itemStat.setLuck(2L + i);
