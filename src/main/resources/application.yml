@@ -46,3 +46,13 @@ logging:
           descriptor:
             sql: trace
 
+  data:
+    redis:
+    host: localhost      # Redis 호스트 주소
+    port: 6379
+
+coolsms:
+  api:
+    key: "NCSGFAJS7KL9OT9E"       # CoolSMS API Key
+    secret: "JHAQPQNBCWDZ71LWAPKLDDUQWQ9RLUOF" # CoolSMS API Secret
+    number: "01084971811" # 발신자 번호 (인증된 번호여야 함)
