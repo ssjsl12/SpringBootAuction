@@ -88,8 +88,11 @@ public class CompleteController {
 
 
     @PostMapping("/complete")
-    public @ResponseBody ResponseEntity collectItem(@RequestBody @Valid CompleteItemDto cDto, Principal principal)
+    public @ResponseBody ResponseEntity collectItem(
+            @RequestBody @Valid CompleteItemDto cDto, Principal principal)
     {
+
+        log.info("회수 완료");
 
         int itemCount = cDto.getItemCount();
         int itemPrice = cDto.getItemPrice();

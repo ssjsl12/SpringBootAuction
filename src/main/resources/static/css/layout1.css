@@ -61,6 +61,17 @@ body {
    margin-right: 45%;
 }
 
+.item-group
+{
+    display: flex;
+    flex-direction: column; /* 세로로 배치 */
+    height: 75vh; /* 전체 화면 높이 */
+}
+
+tbody tr
+{
+    border-color : inherit;
+}
 
      /* 배경색 설정 */
  .back-ground {
@@ -302,7 +313,7 @@ searchTable*/
     width: 100%;
     border-collapse: collapse; /* 테이블 간격 제거 */
     font-size: 14px;
-    color: #333;
+    background-color: #555555;
 }
 
 .searchTable th, .searchTable td {
@@ -498,15 +509,13 @@ searchTable*/
     width: 100%;
     height: 20%;
     background-color: lightslategray;
-    position: fixed;
 }
 
 .sell-form
 {
     width: 20%;
-    height: 50%;
+    height: 100%;
     background-color: #555555;
-    position: fixed;
     right : 0;
 }
 

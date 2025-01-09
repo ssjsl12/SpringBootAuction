@@ -6,7 +6,16 @@ spring:
     url: jdbc:mysql://localhost:3306/shop?serverTimezone=UTC
     username: root
     password: 1234
-
+  mail:
+    host: smtp.naver.com
+    port: 465
+    username: bubbleland13@naver.com
+    password: anehrkalswhd!12
+    properties:
+      mail.smtp.auth: true
+      mail.smtp.ssl.enable: true
+      mail.smtp.ssl.trust: smtp.naver.com
+      mail.smtp.starttls.enable: true
   jpa:
    hibernate:
       ddl-auto: update #테이블 생성
@@ -37,19 +46,3 @@ logging:
           descriptor:
             sql: trace
 
-
-  security:
-    oauth2:
-      client:
-        registration:
-          kakao:
-            client-id: 4db3e0af6e1d6916f03390586d47359a
-            scope: "profile, id" # 필요한 scope 설정
-            redirect-uri: "{baseUrl}/login/oauth2/code/kakao"
-            authorization-grant-type: authorization_code
-            client-name: Kakao
-        provider:
-          kakao:
-            authorization-uri: https://kauth.kakao.com/oauth/authorize
-            token-uri: https://kauth.kakao.com/oauth/token
-            user-info-uri: https://kapi.kakao.com/v2/user/me

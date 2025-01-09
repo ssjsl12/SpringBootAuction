@@ -3,16 +3,122 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layouts/layout1}">
 
-<!-- 사용자 CSS 추가 -->
-<th:block layout:fragment="css">
-    <style>
-        .error {
-            color: #bd2130;
-        }
-    </style>
+
+<th:block layout:fragment="script">
+    <script th:inline="javascript">
+
+        $(document).ready(function() {
+
+            // 비밀번호 발송 버튼 클릭 시
+            $('#checkEmail').on('click', function(){
+
+                checkEmail();
+            });
+
+            function checkEmail() {
+                // 이메일 값 가져오기
+                var email = $('#memberEmail').val();
+
+                // 이메일 형식 검사
+                if (!validateEmail(email)) {
+                    alert('올바른 이메일 형식이 아닙니다.');
+                    return;
+                }
+
+                var paramData =
+                    {
+                       email : email,
+                    }
+
+                var param = JSON.stringify(paramData);
+
+                // AJAX 요청으로 서버에 이메일 전송
+                $.ajax({
+                    url: '/email/check',  // 서버에서 처리할 URL
+                    type:'POST',
+                    contentType:'application/json',
+                    data : param,
+                    success: function(response, status) {
+
+                        alert(response);
+
+                        var messageButton = `
+            <button type="button" class="btn bg-gradient-primary w-100 my-4 mb-2" id="sendMessage">
+                메세지 보내기
+            </button>
+        `;
+
+                        // "이메일 체크" 버튼 아래에 "메세지 보내기" 버튼 추가
+                        $(".modal-footer").append(messageButton);
+
+                        // "메세지 보내기" 버튼 클릭 시 동작을 추가할 수 있습니다.
+                        $("#sendMessage").on('click', function() {
+                            // 메시지를 보내는 동작을 여기에 추가
+
+                            $.ajax({
+                                url: '/email/send',  // 서버에서 처리할 URL
+                                type:'POST',
+                                contentType:'application/json',
+                                data : param,
+                                success:function (response,status)
+                                {
+                                    alert(response);
+                                },
+
+                                error:function (error)
+                                {
+                                    alert("메세지 보내기 실패");
+                                }
+
+
+                            })
+
+                        });
+
+                    },
+                    error: function(jqXHR, status, error) {
+                        alert('이메일 확인에 실패했습니다. 다시 시도해주세요.');
+                    }
+                });
+            }
+
+            // 이메일 형식 검증 함수
+            function validateEmail(email) {
+                var regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+                return regex.test(email);
+            }
+
+        });
+    </script>
 </th:block>
 
+
 <div layout:fragment="content">
+
+    <div class="modal fade" id="findPwModal" tabindex="-1" aria-labelledby="findPwModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <!-- 모달 헤더 -->
+                <div class="modal-header">
+                    <h5 class="modal-title" id="findPwModalLabel">비밀번호 찾기</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <!-- 모달 본문 -->
+                <div class="modal-body">
+                    <div class="input-group input-group-outline my-3">
+                        <label class="form-label">Email</label>
+                        <input type="email" id="memberEmail" name="memberEmail" class="form-control" required>
+                    </div>
+                </div>
+                <!-- 모달 푸터 -->
+                <div class="modal-footer">
+                    <button type="button" class="btn bg-gradient-primary w-100 my-4 mb-2" id="checkEmail">이메일 체크</button>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
 
     <div class = "login-form-content">
     <form role="form" method="post" action="/members/login">
@@ -34,12 +140,12 @@
             <img src="/img/kakao_login_medium_narrow.png" >
         </a>
 
+        <button type="button" class="btn btn-link" data-bs-toggle="modal" data-bs-target="#findPwModal">
+            비밀번호를 잊으셨나요?
+        </button>
+
     </div>
 
-
-
+    </div>
 </div>
-
-
-
 </html>
