@@ -3,19 +3,20 @@ package com.example.auctionshop.controller;
 import com.example.auctionshop.dto.MemberFormDto;
 import com.example.auctionshop.entity.ItemInventory;
 import com.example.auctionshop.entity.Member;
+import com.example.auctionshop.repository.MemberRepository;
 import com.example.auctionshop.service.InventoryService;
 import com.example.auctionshop.service.MemberService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+
+import java.security.Principal;
 
 @Controller
 @RequestMapping("/members")
@@ -27,6 +28,7 @@ public class MemberController {
     private final InventoryService inventoryService;
 
     private final PasswordEncoder passwordEncoder;
+    private final MemberRepository memberRepository;
 
     @GetMapping(value = "/new")
     public String memberForm(Model model) {
@@ -49,6 +51,7 @@ public class MemberController {
             Member member = Member.createMember(memberFormDto , passwordEncoder);
             ItemInventory inventory = ItemInventory.createInventory(member);
 
+            member.setMeso(50000);
             //멤버 저장
             memberService.saveMember(member);
             //인벤토리 저장
@@ -78,6 +81,44 @@ public class MemberController {
     {
         model.addAttribute("loginErrorMsg" , "아이디 또는 비밀번호를 확인해주세요");
         return "/member/memberloginForm";
+    }
+
+    @GetMapping(value = "/option")
+    public String memberOptionForm(Model model , Principal principal)
+    {
+        String email = principal.getName();
+
+        Member member = memberRepository.findByEmail(email);
+
+        MemberFormDto memberFormDto = new MemberFormDto();
+        memberFormDto.setName(member.getName());
+        memberFormDto.setEmail(email);
+        memberFormDto.setAddress(member.getAddress());
+
+        model.addAttribute("memberFormDto" ,memberFormDto);
+
+        return "member/memberoptionForm";
+    }
+
+    @PostMapping(value = "/option")
+    public String memberOptionSubmit(@Valid MemberFormDto memberFormDto)
+    {
+        //memberService.updatePassword(memberFormDto.getPassword(),memberFormDto.getEmail());
+
+        memberFormDto.setName(memberFormDto.getName());
+        memberFormDto.setEmail(memberFormDto.getEmail());
+        memberFormDto.setAddress(memberFormDto.getAddress());
+
+
+        Member member = memberService.findByEmail(memberFormDto.getEmail());
+        memberService.updatePassword(memberFormDto.getPassword(), member.getEmail());
+        member.setName(memberFormDto.getName());
+        member.setAddress(memberFormDto.getAddress());
+
+        memberService.updateMember(member);
+
+
+        return "member/memberloginForm";
     }
 
 }
