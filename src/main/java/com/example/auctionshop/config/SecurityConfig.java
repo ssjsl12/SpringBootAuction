@@ -27,12 +27,12 @@ import java.util.List;
 @Log4j2
 public class SecurityConfig {
 
-    private final CustomOAuth2UserService customOAuth2UserService;
+   /* private final CustomOAuth2UserService customOAuth2UserService;
 
     @Autowired
     public SecurityConfig(CustomOAuth2UserService customOAuth2UserService) {
         this.customOAuth2UserService = customOAuth2UserService;
-    }
+    }*/
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -43,7 +43,7 @@ public class SecurityConfig {
         http
                 .authorizeHttpRequests(config -> config
                         .requestMatchers("/css/**", "/js/**", "/img/**").permitAll()
-                        .requestMatchers("/", "/email/**", "/members/**", "api/**", "/item/**", "/images/**", "/kakaologin", "/auth/**").permitAll()
+                        .requestMatchers("/", "/email/**", "/members/**", "/api/**", "/item/**", "/images/**", "/kakaologin", "/auth/**").permitAll()
                         .requestMatchers("/admin/**").hasRole("ADMIN")
                         .requestMatchers("/oauth-login/admin").hasRole("ADMIN")
                         .requestMatchers("/oauth-login/info").authenticated()
@@ -66,16 +66,16 @@ public class SecurityConfig {
                         .maxSessionsPreventsLogin(true)
                 )
                 .csrf(config -> config.disable());
-        http
+    /*    http
                 .oauth2Login(oauth2 -> oauth2
                         // customOAuth2UserService 등록
                         .loginPage("/main")
-                        .userInfoEndpoint(userInfoEndpointConfig ->
-                                userInfoEndpointConfig.userService(customOAuth2UserService))
+                      *//*  .userInfoEndpoint(userInfoEndpointConfig ->
+                                userInfoEndpointConfig.userService(customOAuth2UserService))*//*
                         .failureUrl("/members/login/error")
                         .defaultSuccessUrl("/main")
                         .permitAll()
-                );
+                );*/
 
         return http.build();
 

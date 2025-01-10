@@ -9,7 +9,6 @@ import com.example.auctionshop.service.MemberService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -71,7 +70,7 @@ public class MemberController {
     @GetMapping(value = "/login")
     public String login(){
 
-
+        log.info("login");
 
         return "member/memberloginForm";
     }
@@ -119,6 +118,13 @@ public class MemberController {
 
 
         return "member/memberloginForm";
+    }
+
+    @GetMapping(value="/memberFind")
+    public String memberFind()
+    {
+
+        return "member/memberFind";
     }
 
 }

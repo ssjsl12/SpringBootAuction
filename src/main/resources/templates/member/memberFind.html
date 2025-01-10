@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout1}">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+
+<th:block layout:fragment="script">
+    <script th:inline="javascript">
+
+        $(document).ready(function() {
+
+            function hideAllForms() {
+                document.getElementById('email-form').classList.add('d-none');
+                document.getElementById('phone-form').classList.add('d-none');
+            }
+
+            // 이메일 인증 버튼 클릭 이벤트
+            document.getElementById('email-btn').addEventListener('click', function () {
+                hideAllForms(); // 다른 폼 숨기기
+                document.getElementById('button-container').classList.add('d-none'); // 버튼 숨기기
+                document.getElementById('email-form').classList.remove('d-none');   // 이메일 폼 표시
+            });
+
+            // 휴대폰 인증 버튼 클릭 이벤트
+            document.getElementById('phone-btn').addEventListener('click', function () {
+                hideAllForms(); // 다른 폼 숨기기
+                document.getElementById('button-container').classList.add('d-none'); // 버튼 숨기기
+                document.getElementById('phone-form').classList.remove('d-none');   // 휴대폰 폼 표시
+            });
+
+            $("#sns-send").on('click',function (event)
+            {
+                event.preventDefault();
+
+                var phone = $('#phone').val();
+
+                var paramData =
+                    {
+                        phoneNumber : phone,
+                    }
+
+                var param = JSON.stringify(paramData);
+
+                $.ajax({
+                    url: '/api/sms/send',  // 서버에서 처리할 URL
+                    type:'POST',
+                    contentType:'application/json',
+                    data : param,
+                    success:function (response,status)
+                    {
+                        $("#phone-verification-code-container").removeClass('d-none');
+                        alert(response);
+                    },
+
+                    error:function (error)
+                    {
+                        alert("메세지 보내기 실패");
+                    }
+                })
+
+            })
+
+            $("#verify-code").on('click', function(event) {
+                event.preventDefault();
+
+                var code = $('#verification-code').val();
+                var email = $('#email').val();
+
+                if (!code) {
+                    alert("인증번호를 입력해주세요.");
+                    return;
+                }
+
+                var paramData = { code: code ,   email : email };
+                var param = JSON.stringify(paramData);
+
+                $.ajax({
+                    url: '/email/verify',
+                    type: 'POST',
+                    contentType: 'application/json',
+                    data: param,
+                    success: function(response) {
+
+                        alert("인증이 완료되었습니다.");
+                        location.href = '/main'
+                    },
+                    error: function(error) {
+                        alert("인증번호가 올바르지 않습니다.");
+                    }
+                });
+            });
+
+
+            $("#email-send").on('click', function(event) {
+                // 메시지를 보내는 동작을 여기에 추가
+
+                event.preventDefault();
+
+                var email = $('#email').val();
+
+                var paramData =
+                    {
+                        email : email,
+                    }
+
+                var param = JSON.stringify(paramData);
+
+                $.ajax({
+                    url: '/email/send',  // 서버에서 처리할 URL
+                    type:'POST',
+                    contentType:'application/json',
+                    data : param,
+                    success:function (response,status)
+                    {
+                        $("#verification-code-container").removeClass('d-none');
+                        alert(response);
+                    },
+
+                    error:function (error)
+                    {
+                        alert("메세지 보내기 실패");
+                    }
+                })
+
+            });
+
+            $("#verify-phone-code").on('click', function(event) {
+                event.preventDefault();
+
+                var code = $('#phone-verification-code').val();
+
+                if (!code) {
+                    alert("인증번호를 입력해주세요.");
+                    return;
+                }
+
+                var paramData = { code: code };
+                var param = JSON.stringify(paramData);
+
+                $.ajax({
+                    url: '/api/sms/verify',
+                    type: 'POST',
+                    contentType: 'application/json',
+                    data: param,
+                    success: function(response) {
+
+                        alert("인증이 완료되었습니다.");
+                        location.href = '/main'
+                    },
+                    error: function(error) {
+                        alert("인증번호가 올바르지 않습니다.");
+                    }
+                });
+            });
+
+
+
+        });
+
+    </script>
+</th:block>
+
+<div layout:fragment="content">
+
+    <div class="container mt-5">
+        <h3 class="text-center">인증 방법을 선택하세요</h3>
+        <div id="button-container" class="d-flex justify-content-center mt-4">
+            <!-- 이메일 인증 버튼 -->
+            <button id="email-btn" class="btn btn-primary me-3">
+                이메일 인증
+            </button>
+            <!-- 휴대폰 인증 버튼 -->
+            <button id="phone-btn" class="btn btn-success">
+                휴대폰 인증
+            </button>
+        </div>
+
+        <!-- 이메일 인증 폼 -->
+        <div id="email-form" class="mt-4 d-none">
+            <h4>이메일 인증</h4>
+            <form method="post" action="/auth/email">
+                <div class="mb-3">
+                    <label for="email" class="form-label">이메일 주소</label>
+                    <input type="email" class="form-control" id="email" name="email" placeholder="example@example.com" required>
+                </div>
+                <button type="submit" class="btn btn-primary" id = "email-send">인증 요청</button>
+            </form>
+
+            <div id="verification-code-container" class="mt-4 d-none">
+                <h4>인증번호 입력</h4>
+                <div class="mb-3">
+                    <label for="verification-code" class="form-label">인증번호</label>
+                    <input type="text" id="verification-code" class="form-control" placeholder="인증번호 입력" required>
+                </div>
+                <button id="verify-code" class="btn btn-success">인증하기</button>
+            </div>
+
+        </div>
+
+        <!-- 휴대폰 인증 폼 -->
+        <div id="phone-form" class="mt-4 d-none">
+            <h4>휴대폰 인증</h4>
+            <form method="post" action="/auth/phone">
+                <div class="mb-3">
+                    <label for="phone" class="form-label">휴대폰 번호</label>
+                    <input type="text" class="form-control" id="phone" name="phone" placeholder="010-1234-5678" required>
+                </div>
+                <button type="submit" class="btn btn-success" id = "sns-send">인증 요청</button>
+            </form>
+
+            <div id="phone-verification-code-container" class="mt-4 d-none">
+                <h4>인증번호 입력</h4>
+                <div class="mb-3">
+                    <label for="phone-verification-code" class="form-label">인증번호</label>
+                    <input type="text" id="phone-verification-code" class="form-control" placeholder="인증번호 입력" required>
+                </div>
+                <button id="verify-phone-code" class="btn btn-success">인증하기</button>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+</html>
