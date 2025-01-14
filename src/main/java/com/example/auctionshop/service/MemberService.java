@@ -28,6 +28,10 @@ public class MemberService implements UserDetailsService {
         return memberRepository.existsByEmail(email);
     }
 
+    public Member findByPhoeNumber(String phoeNumber) {
+        return memberRepository.findByPhone(phoeNumber);
+    }
+
     public Member saveMember(Member member) {
 
         //중복 체크

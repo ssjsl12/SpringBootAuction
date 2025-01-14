@@ -10,6 +10,7 @@
 
         $(document).ready(function() {
 
+
             function hideAllForms() {
                 document.getElementById('email-form').classList.add('d-none');
                 document.getElementById('phone-form').classList.add('d-none');
@@ -83,7 +84,7 @@
                     success: function(response) {
 
                         alert("인증이 완료되었습니다.");
-                        location.href = '/main'
+                        location.href = "/members/changePwd"; // 리다이렉트
                     },
                     error: function(error) {
                         alert("인증번호가 올바르지 않습니다.");
@@ -145,8 +146,11 @@
                     data: param,
                     success: function(response) {
 
-                        alert("인증이 완료되었습니다.");
-                        location.href = '/main'
+                        alert(response.message);
+
+                        location.href = "/members/changePwd"; // 리다이렉트
+
+
                     },
                     error: function(error) {
                         alert("인증번호가 올바르지 않습니다.");

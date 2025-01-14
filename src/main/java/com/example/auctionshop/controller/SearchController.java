@@ -223,7 +223,7 @@ public class SearchController {
         memberService.updateMemberMeso(user,(int)itemPrice);
 
         StoreItem storeItem = storeItemService.findByItemId(orderDto.getId());
-
+        
         //거래소 아이템 개수 업데이트
         storeItemService.UpdateStock(storeItem,orderDto.getStock());
 

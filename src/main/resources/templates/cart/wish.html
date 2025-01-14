@@ -29,13 +29,28 @@
             const price = item.getAttribute('data-price');
             const stock = item.getAttribute('data-stock');
             const img = item.getAttribute('data-img');
+            const itemStat = item.getAttribute('data-stat');
+            const itemImg = item.getAttribute('data-imgurl');
+            const itemName = item.getAttribute('data-name');
+            const itemId = item.getAttribute('data-itemId');
 
             const modalImg = $("#modalImg");
             const modalId = $("#modalId");
             const modalPrice = $("#modalPrice");
-            const modalStock = $("#modalStock");
+
             const itemBuyButton = $(".item-buy");
 
+            const regex = /(\w+)=(\d+|null)/g;
+            let match;
+            const parseStat = {};
+            while ((match = regex.exec(itemStat)) !== null) {
+                // 값을 null로 처리하거나 숫자로 변환
+                if (match[2] === 'null') {
+                    parseStat[match[1]] = null;  // "null" 문자열을 null로 처리
+                } else {
+                    parseStat[match[1]] = parseInt(match[2], 10);  // 숫자 변환
+                }
+            }
 
             modalImg.attr('src', `/img/${img}.png`);
             modalId.text('ID: ' + id);
@@ -43,7 +58,9 @@
 
             itemBuyButton.off('click').on('click', function () {
 
-                if (stock < modalStock.val() || modalStock.val() <= 0) {
+                const modalStock = $("#modalStock");
+                console.log(modalStock.val());
+                if (stock < modalStock.val() && modalStock.val() <= 0) {
                     alert("갯수가 적합하지 않습니다");
                     return;
                 }
@@ -53,6 +70,10 @@
                         id: id,
                         stock: modalStock.val(),
                         price: price,
+                        itemImg : itemImg,
+                        itemStat : parseStat,
+                        name : itemName,
+                        itemId : itemId
                     }
 
                 var param = JSON.stringify(paramData);
@@ -74,12 +95,8 @@
                         location.href = '/cart/wish/0';
                     },
                     error: function (jqXHR, status, error) {
-                        if (jqXHR.status == '401') {
-                            alert('로그인 후 이용해주세요');
-                            location.href = '/members/login';
-                        } else {
-                            alert('메소가 부족합니다');
-                        }
+
+                        alert("주문 실패");
                     }
                 });
 
@@ -155,8 +172,11 @@
                 <button type="button" class = "modalOpenButton"
                         th:data-price="${item.price}"
                         th:data-stock="${item.getStoreitem().item.stock_number}"
-                        th:data-id="${item.getStoreitem().item.id}"
-                        th:data-img ="${item.getStoreitem().item.itemImg.imgUrl}"
+                        th:data-id="${item.getStoreitem().id}"
+                        th:data-imgurl ="${item.getStoreitem().item.itemImg.imgUrl}"
+                        th:data-stat = "${item.getStoreitem().item.itemStat.toString()}"
+                        th:data-name = "${item.getStoreitem().item.name}"
+                        th:data-itemId = "${item.getStoreitem().item.id}"
                         onclick="getItem(this)">
                     구매
                 </button> </td>

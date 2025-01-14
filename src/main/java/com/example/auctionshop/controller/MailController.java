@@ -74,10 +74,12 @@ public class MailController {
         if (tmpPassword.equals(inputCode)) {
             session.removeAttribute("tmpPassword");
 
-            tmpPassword = memberService.getTmpPassword();
+            session.setAttribute("email", email);
+
+         /*   tmpPassword = memberService.getTmpPassword();
             memberService.updatePassword(tmpPassword, email);
             MailDto mail = mailService.createMail2(tmpPassword, email);
-            mailService.sendMail(mail);
+            mailService.sendMail(mail);*/
 
             return ResponseEntity.ok("인증번호가 일치합니다");
         } else {

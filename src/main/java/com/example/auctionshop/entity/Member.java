@@ -24,6 +24,10 @@ public class Member extends BaseEntity
 
     @Column(unique = true)
     private String email;
+
+    @Column(unique = true)
+    private String phone;
+
     private String password;
     private String address;
 
@@ -38,6 +42,7 @@ public class Member extends BaseEntity
         Member member = new Member();
         member.setName(dto.getName());
         member.setEmail(dto.getEmail());
+        member.setPhone(dto.getPhone());
         member.setPassword(passwordEncoder.encode(dto.getPassword()));
         member.setAddress(dto.getAddress());
         member.setRole(Role.ADMIN);
