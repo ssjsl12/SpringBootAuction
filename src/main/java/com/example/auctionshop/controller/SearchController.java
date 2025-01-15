@@ -80,7 +80,8 @@ public class SearchController {
             getUser(principal,model);
 
         }
-        else{
+        else
+        {
             tempsellItems = sellItems;
         }
 
@@ -93,7 +94,6 @@ public class SearchController {
         Page<StoreItem> sellItemsPage = storeItemService.getSellItems(pageRequest, tempsellItems);
 
 
-
         // 모델에 sellItemsPage (Page 객체)를 추가
         model.addAttribute("sellItems", sellItemsPage);
 
@@ -101,13 +101,12 @@ public class SearchController {
         model.addAttribute("currentPage", sellItemsPage.getNumber());
         model.addAttribute("totalPages", sellItemsPage.getTotalPages());
 
-
-
         return "item/search"; // 'item/search.html'로 이동
     }
 
     @GetMapping("/price/{page}")
-    public String price(@PathVariable int page ,HttpSession session , @Valid  StatusFormDto statusFormDto, Model model ,Principal principal)
+    public String price(@PathVariable int page ,HttpSession session ,
+                        @Valid StatusFormDto statusFormDto, Model model ,Principal principal)
     {
 
         if(session.getAttribute("statusFormDto") != null)

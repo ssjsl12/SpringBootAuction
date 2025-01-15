@@ -30,19 +30,17 @@ public class MailController {
 
         String email = request.get("email").toString();
 
-        log.info(email);
-
         if(memberService.findByEmail(email) ==  null)
         {
             return new ResponseEntity<String>("일치하는 메일이 없습니다.", HttpStatus.BAD_REQUEST);
         }
 
-
         return new ResponseEntity<String>("이메일을 사용하는 유저가 존재합니다.", HttpStatus.OK);
     }
 
     @PostMapping("/send")
-    public @ResponseBody ResponseEntity sendAuthMessage(@RequestBody Map<String , Object> request, HttpSession session) {
+    public @ResponseBody ResponseEntity sendAuthMessage(@RequestBody Map<String , Object> request
+            , HttpSession session) {
 
 
         String email = request.get("email").toString();
@@ -75,11 +73,6 @@ public class MailController {
             session.removeAttribute("tmpPassword");
 
             session.setAttribute("email", email);
-
-         /*   tmpPassword = memberService.getTmpPassword();
-            memberService.updatePassword(tmpPassword, email);
-            MailDto mail = mailService.createMail2(tmpPassword, email);
-            mailService.sendMail(mail);*/
 
             return ResponseEntity.ok("인증번호가 일치합니다");
         } else {

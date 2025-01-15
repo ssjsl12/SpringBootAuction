@@ -35,8 +35,6 @@ public class SmsController {
                 session.setAttribute("phoneNumber",phoneNumber);
                 log.info("Generated code is: " + generatedCode);
 
-
-
                  return new ResponseEntity<String>("인증번호 요청이 완료되었습니다..", HttpStatus.OK);
             }
         catch (Exception e)
@@ -46,9 +44,6 @@ public class SmsController {
 
             return new ResponseEntity<String>("인증번호 요청을 실패하였습니다.", HttpStatus.BAD_REQUEST);
         }
-
-
-
     }
 
     @PostMapping("/verify")

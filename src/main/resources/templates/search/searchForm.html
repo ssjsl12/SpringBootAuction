@@ -50,7 +50,7 @@
 
       const tableBody = document.getElementById("status-table-body");
       tableBody.classList.add("status-table-body");
-// for문을 사용하여 동적으로 생성
+
       for (let i = 0; i < statuses.length; i++) {
         const row = document.createElement("tr");
 
@@ -140,12 +140,6 @@
 
         <form class="search-form" id="searchForm"  method="post" th:object="${searchFormDto}">
         <div class="checkbox-group">
-          <!-- AND/OR 라디오 버튼 그룹 -->
-
-       <!--   <div>
-            <label class = "search-text" for="searchQuery">빠른 검색:</label>
-            <input type="text" id="searchQuery" name="searchQuery" placeholder="검색어를 입력하세요">
-          </div>-->
 
           <div class="button-group">
             <span class = "search-text">세부 검색</span>

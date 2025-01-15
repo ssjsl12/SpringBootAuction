@@ -61,10 +61,10 @@ public class SecurityConfig {
                         .invalidateHttpSession(true)
                         .deleteCookies("JSESSIONID")
                 )
-                .sessionManagement(sessionManagement -> sessionManagement
+       /*         .sessionManagement(sessionManagement -> sessionManagement
                         .maximumSessions(1)
                         .maxSessionsPreventsLogin(true)
-                )
+                )*/
                 .csrf(config -> config.disable());
     /*    http
                 .oauth2Login(oauth2 -> oauth2

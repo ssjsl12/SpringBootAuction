@@ -95,6 +95,7 @@ public class MemberController {
         memberFormDto.setName(member.getName());
         memberFormDto.setEmail(email);
         memberFormDto.setAddress(member.getAddress());
+        memberFormDto.setPhone(member.getPhone());
 
         model.addAttribute("memberFormDto" ,memberFormDto);
 
@@ -111,9 +112,11 @@ public class MemberController {
         Member member = memberRepository.findByEmail(email);
 
         MemberFormDto memberFormDto = new MemberFormDto();
+
         memberFormDto.setName(member.getName());
         memberFormDto.setEmail(email);
         memberFormDto.setAddress(member.getAddress());
+        memberFormDto.setPhone(member.getPhone());
 
         model.addAttribute("memberFormDto" ,memberFormDto);
 
@@ -128,7 +131,7 @@ public class MemberController {
         memberFormDto.setName(memberFormDto.getName());
         memberFormDto.setEmail(memberFormDto.getEmail());
         memberFormDto.setAddress(memberFormDto.getAddress());
-
+        memberFormDto.setPhone(memberFormDto.getPhone());
 
         Member member = memberService.findByEmail(memberFormDto.getEmail());
         memberService.updatePassword(memberFormDto.getPassword(), member.getEmail());

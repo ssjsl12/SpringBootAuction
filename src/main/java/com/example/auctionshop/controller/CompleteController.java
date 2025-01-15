@@ -66,15 +66,12 @@ public class CompleteController {
            }
         }
 
-
         PageRequest pageRequest = PageRequest.of(page, 12);
-
 
         Page<CompleteItem> compleItemPage = completeItemService.getCompleteItems(pageRequest, mycItem);
 
         // 모델에 sellItemsPage (Page 객체)를 추가
         model.addAttribute("completeItem", compleItemPage);
-
 
         if(!email.isEmpty())
         {
@@ -91,13 +88,9 @@ public class CompleteController {
     public @ResponseBody ResponseEntity collectItem(
             @RequestBody @Valid CompleteItemDto cDto, Principal principal)
     {
-
-        log.info("회수 완료");
-
         int itemCount = cDto.getItemCount();
         int itemPrice = cDto.getItemPrice();
         Long itemId = cDto.getItemId();
-        int itemStatus = cDto.getStatus();
 
         String email = principal.getName();
         Member user = memberService.findByEmail(email);
