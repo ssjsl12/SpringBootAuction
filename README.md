@@ -17,26 +17,38 @@
 
 ![image](https://github.com/user-attachments/assets/35359b0f-e83d-46f4-b496-4bb194dbfe7c)
 
+<br>  
 
 ## 로그인 페이지
 
 ![image](https://github.com/user-attachments/assets/77a0a5c5-0585-4dc5-9f1a-ec59c2b2fa29)
 
+<br>  
+
 ## 시세 페이지
 
 ![image](https://github.com/user-attachments/assets/025f841e-bce5-4526-92ff-90b74634657a)
+
+<br>  
 
 ## 검색 페이지
 
 ![image](https://github.com/user-attachments/assets/cc9e5498-9d59-49f5-8933-131ffcd8dc61)
 
+<br>  
+
 ## 찜 페이지
 
 ![image](https://github.com/user-attachments/assets/da7d94a2-d9f6-42d6-b03a-a91b2ffe9bf2)
 
+<br>  
+
+
 ## 판매 페이지
 
 ![image](https://github.com/user-attachments/assets/e760b96b-b6e6-4518-be6f-efe84b48aea8)
+
+<br>  
 
 
 ## 인증 페이지 
