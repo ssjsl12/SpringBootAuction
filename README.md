@@ -1,3 +1,6 @@
+![image](https://github.com/user-attachments/assets/7d0a728c-fadd-4a7a-9271-b9f3fc69f646)
+
+
 ## 🛠 페이지 구성   
 
 1. 회원가입 페이지 
@@ -11,7 +14,8 @@
 
 #회원가입 페이지
 
-![image](https://github.com/user-attachments/assets/7d0a728c-fadd-4a7a-9271-b9f3fc69f646)
+![image](https://github.com/user-attachments/assets/35359b0f-e83d-46f4-b496-4bb194dbfe7c)
+
 
 #로그인 페이지
 
