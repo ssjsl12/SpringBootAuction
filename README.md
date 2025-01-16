@@ -1,5 +1,8 @@
 ![image](https://github.com/user-attachments/assets/7d0a728c-fadd-4a7a-9271-b9f3fc69f646)
 
+## 📂 PPT 📂
+
+[거래시스템.pptx](https://github.com/user-attachments/files/18432794/default.pptx)
 
 ## 🛠 페이지 구성   
 
