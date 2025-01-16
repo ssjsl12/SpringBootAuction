@@ -43,6 +43,14 @@
 
 ![image](https://github.com/user-attachments/assets/35359b0f-e83d-46f4-b496-4bb194dbfe7c)
 
+<details> 
+<summary> 동영상
+</summary>
+  
+https://github.com/user-attachments/assets/9b738336-adf8-441c-af44-df5e6a88136e
+
+</details>
+
 <br>  
 
 ## 로그인 페이지
