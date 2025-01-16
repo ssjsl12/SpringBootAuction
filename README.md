@@ -76,7 +76,6 @@ https://github.com/user-attachments/assets/369adcfd-417c-46c4-a00a-4ea99a52acfa
 <summary> 시세 검색 동영상
 </summary>
   
-  - 검색
 https://github.com/user-attachments/assets/4aecaaaf-e23e-4038-98b6-240bddcd2c67
 
 </details>
@@ -91,10 +90,8 @@ https://github.com/user-attachments/assets/4aecaaaf-e23e-4038-98b6-240bddcd2c67
 <summary> 거래소 검색 및 구매 동영상
 </summary>
 
-  - 거래소 검색
 https://github.com/user-attachments/assets/f5bc855a-e864-401c-af21-31720c4fc2c0
 
-  - 구매
 https://github.com/user-attachments/assets/b28ededc-4dc5-4aa6-b55d-4818f2a4d283
 
 </details>
