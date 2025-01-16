@@ -3,7 +3,8 @@
 ## 📂 PPT 📂
 <details> 
 <summary>
-![image](https://github.com/user-attachments/assets/48afd22b-77f3-45c2-87d8-b146177c130a)
+</summary>
+  ![image](https://github.com/user-attachments/assets/48afd22b-77f3-45c2-87d8-b146177c130a)
 ![image](https://github.com/user-attachments/assets/33ddd40d-c28a-45e7-830e-15e69c642e6c)
 ![image](https://github.com/user-attachments/assets/9b4ccf2e-08f5-4dbf-932c-22d5732aaeca)
 ![image](https://github.com/user-attachments/assets/5383af78-b2c2-46a1-8d0d-13cd469e40eb)
@@ -15,9 +16,6 @@
 ![image](https://github.com/user-attachments/assets/341f3d08-7451-46ab-8ebe-be7dcc6a87d2)
 ![image](https://github.com/user-attachments/assets/db45ae00-60d7-4ba7-8be7-fe6ae25b1454)
 ![image](https://github.com/user-attachments/assets/3303c4e5-549d-40e0-a697-0315236c3b9f)
-
-
-</summary>
 </details>
 
 
