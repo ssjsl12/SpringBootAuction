@@ -10,6 +10,24 @@
 ## 🙋‍♀️ Team_Member 🙋‍♀️
   - 이민종 DB설계, 페이지 설계 , 구현
 
+## 개발 기간
+  - 2024.12.18 - 2025.01.14
+
+## 🔨 개발 환경 🔨
+
+  BACKEND
+  - JAVA, HTML5, JavaScript
+  FRONTEND
+  - CSS3, BOOTSTRAP
+  DATABASE
+  - MySQL
+  IDE
+  - IntelliJ
+  Collaboration
+  - GItHub, Sourcetree
+
+
+
 ## 📊 다이어그램 📊
 <details> 
 <summary>  ERD
@@ -27,7 +45,7 @@
 
 </details>
 
-## 🛠 페이지 구성   
+## 🛠 페이지 구성 및 구현 기능
 
   - [회원가입 페이지](#회원가입-페이지)
   - [로그인 페이지](#로그인-페이지)
@@ -157,13 +175,6 @@ https://github.com/user-attachments/assets/67c14d09-d1a3-4fa7-bcf6-93af1c498e62
 </details>
 
 
-🔨 개발 환경 🔨
-  
-  - JAVA HTML5 JavaScript
-  - CSS3 bootstrap
-  - MySQL
-  - IntelliJ
-  - GItHub Sourcetree
   
   
 
