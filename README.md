@@ -1,4 +1,3 @@
-![image](https://github.com/user-attachments/assets/7d0a728c-fadd-4a7a-9271-b9f3fc69f646)
 
 ## 📂 PPT 📂
 <details> 
@@ -31,12 +30,20 @@
 ## 🙋‍♀️ Team_Member 🙋‍♀️
   - 이민종 DB설계, 페이지 설계 , 구현
 
-## ERD
+## 📊 다이어그램 📊
 <details> 
 <summary>
-</summary>
+</summary> ERD
   
   ![image](https://github.com/user-attachments/assets/266f6154-0a6b-497b-a416-9809484a4a54)
+
+</details>
+
+<details> 
+<summary>
+</summary> Class
+  
+  ![image](https://github.com/user-attachments/assets/797ac40d-d69d-4247-8b88-14dd076ab88b)
 
 </details>
 
@@ -97,12 +104,16 @@
 ![image](https://github.com/user-attachments/assets/3cdacee0-a0b2-4794-81b0-c25fc69e45dc)
 
 
+🔨 개발 환경 🔨
+  
+  - JAVA HTML5 JavaScript
+  - CSS3 bootstrap
+  - MySQL
+  - IntelliJ
+  - GItHub Sourcetree
+  
+  
 
-
-
-
-
-https://github.com/user-attachments/assets/67983326-6e9c-420b-9dbf-f37ddeca593c
 
 
 
