@@ -66,7 +66,7 @@
 ## 회원가입 페이지
 
 <details> 
-<summary> 동영상
+<summary> 자세히 보기
 </summary>
 
 ![image](https://github.com/user-attachments/assets/35359b0f-e83d-46f4-b496-4bb194dbfe7c)
