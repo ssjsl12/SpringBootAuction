@@ -28,7 +28,6 @@ public class MemberController {
     private final InventoryService inventoryService;
 
     private final PasswordEncoder passwordEncoder;
-    private final MemberRepository memberRepository;
 
     @GetMapping(value = "/new")
     public String memberForm(Model model) {
@@ -89,7 +88,7 @@ public class MemberController {
     {
         String email = principal.getName();
 
-        Member member = memberRepository.findByEmail(email);
+        Member member = memberService.findByEmail(email);
 
         MemberFormDto memberFormDto = new MemberFormDto();
         memberFormDto.setName(member.getName());
@@ -109,7 +108,7 @@ public class MemberController {
 
         String email = session.getAttribute("email").toString();
 
-        Member member = memberRepository.findByEmail(email);
+        Member member = memberService.findByEmail(email);
 
         MemberFormDto memberFormDto = new MemberFormDto();
 
