@@ -64,8 +64,6 @@
 
 ## 회원가입 페이지
 
-
-
 <details> 
 <summary> 동영상
 </summary>
@@ -171,6 +169,7 @@ https://github.com/user-attachments/assets/f12b3947-4e58-4fec-af7c-8e80c18c25fb
 
 </details>
 
+<br>
 
 ## 완료 페이지
 
@@ -184,6 +183,7 @@ https://github.com/user-attachments/assets/67c14d09-d1a3-4fa7-bcf6-93af1c498e62
 
 </details>
 
+<br>
 
 ## 🌄 차후 개발 
 
