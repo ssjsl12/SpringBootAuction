@@ -8,7 +8,11 @@
     사용자는 아이템을 등록하고, 검색하고, 구매하는 과정을 통해 거래 시스템의 전반적인 흐름을 경험할 수 있습니다.
 
 ## 🙋‍♀️ Team_Member 🙋‍♀️
-  - 이민종 DB설계, 페이지 설계 , 구현
+  | title1 |
+| --- |
+| 이민종 |
+| 테이블 설계, 클래스 설계 , 구현 | 
+ 
 
 ## 개발 기간
   - 2024.12.18 - 2025.01.14
@@ -26,10 +30,6 @@
   <img src="https://img.shields.io/badge/mysql-4479A1?style=for-the-badge&logo=mysql&logoColor=white"> 
   
   <img src="https://img.shields.io/badge/github-181717?style=for-the-badge&logo=github&logoColor=white">   <img src="https://img.shields.io/badge/sourcetree-181717?style=for-the-badge&logo=sourcetree&logoColor=white">
-
-
-
-
 
 
 ## 📊 다이어그램 📊
@@ -171,7 +171,7 @@ https://github.com/user-attachments/assets/f12b3947-4e58-4fec-af7c-8e80c18c25fb
 ![image](https://github.com/user-attachments/assets/53259072-9640-4417-ad2b-3ae405533f51)
 
 <details> 
-<summary> 거래된 아이템 메소 회수 동영상
+<summary> 거래가 완료된 아이템 메소 회수 동영상
 </summary>
   
 https://github.com/user-attachments/assets/67c14d09-d1a3-4fa7-bcf6-93af1c498e62
