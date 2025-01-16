@@ -156,7 +156,6 @@ https://github.com/user-attachments/assets/b836f700-97e9-4474-9c01-d298236507b6
 
 ## 인증 페이지 
 
-
 <details> 
 <summary> 자세히 보기
 </summary>
@@ -172,9 +171,8 @@ https://github.com/user-attachments/assets/f12b3947-4e58-4fec-af7c-8e80c18c25fb
 
 </details>
 
+
 ## 완료 페이지
-
-
 
 <details> 
 <summary> 자세히 보기
@@ -187,7 +185,11 @@ https://github.com/user-attachments/assets/67c14d09-d1a3-4fa7-bcf6-93af1c498e62
 </details>
 
 
-  
+## 🌄 차후 개발 
+
+  - 온라인/오프라인
+  - 채팅 구현
+  - 친구 추가
   
 
 
