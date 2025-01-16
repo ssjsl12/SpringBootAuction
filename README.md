@@ -81,7 +81,7 @@ https://github.com/user-attachments/assets/ef861e35-f9bd-4566-bc45-0214f3c8bfd8
 ## 로그인 페이지
 
 <details> 
-<summary> 동영상
+<summary> 자세히 보기
 </summary>
 
 ![image](https://github.com/user-attachments/assets/77a0a5c5-0585-4dc5-9f1a-ec59c2b2fa29)
@@ -97,7 +97,7 @@ https://github.com/user-attachments/assets/369adcfd-417c-46c4-a00a-4ea99a52acfa
 
 
 <details> 
-<summary> 시세 검색 동영상
+<summary> 자세히 보기
 </summary>
 
 ![image](https://github.com/user-attachments/assets/025f841e-bce5-4526-92ff-90b74634657a)
@@ -111,7 +111,7 @@ https://github.com/user-attachments/assets/4aecaaaf-e23e-4038-98b6-240bddcd2c67
 ## 검색 페이지
 
 <details> 
-<summary> 거래소 검색 및 구매 동영상
+<summary> 자세히 보기
 </summary>
 
 ![image](https://github.com/user-attachments/assets/cc9e5498-9d59-49f5-8933-131ffcd8dc61)
@@ -127,7 +127,7 @@ https://github.com/user-attachments/assets/b28ededc-4dc5-4aa6-b55d-4818f2a4d283
 ## 찜 페이지
 
 <details> 
-<summary> 찜 동영상
+<summary> 자세히 보기
 </summary>
 
 ![image](https://github.com/user-attachments/assets/da7d94a2-d9f6-42d6-b03a-a91b2ffe9bf2)
@@ -142,7 +142,7 @@ https://github.com/user-attachments/assets/5790a5e6-0069-431a-876f-abdec4f23a99
 ## 판매 페이지
 
 <details> 
-<summary> 아이템 판매 동영상
+<summary> 자세히 보기
 </summary>
 
 ![image](https://github.com/user-attachments/assets/e760b96b-b6e6-4518-be6f-efe84b48aea8)
@@ -158,7 +158,7 @@ https://github.com/user-attachments/assets/b836f700-97e9-4474-9c01-d298236507b6
 
 
 <details> 
-<summary> 이메일 인증 및 휴대폰 인증 동영상
+<summary> 자세히 보기
 </summary>
 
 ![image](https://github.com/user-attachments/assets/75368cf9-ab05-4b63-ba93-e7a483a78174)
@@ -177,7 +177,7 @@ https://github.com/user-attachments/assets/f12b3947-4e58-4fec-af7c-8e80c18c25fb
 
 
 <details> 
-<summary> 거래가 완료된 아이템 메소 회수 동영상
+<summary> 자세히 보기
 </summary>
 
 ![image](https://github.com/user-attachments/assets/53259072-9640-4417-ad2b-3ae405533f51)
