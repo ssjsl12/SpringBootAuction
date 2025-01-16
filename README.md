@@ -1,25 +1,25 @@
 ![image](https://github.com/user-attachments/assets/7d0a728c-fadd-4a7a-9271-b9f3fc69f646)
 
-## 📂 PPT 📂
+
+
+## 📖 프로젝트 소개📖
+  - 메이플스토리의 경매장을 구현 하였습니다.
+
+## 💡기획 의도💡
+  - 본 프로젝트는 메이플스토리의 옥션 시스템을 모방한 웹 애플리케이션을 구현하여,
+    실제 온라인 거래소의 작동 원리를 학습하고 웹 개발 기술을 연습하는 데 그 목적이 있습니다.
+    사용자는 아이템을 등록하고, 검색하고, 구매하는 과정을 통해 거래 시스템의 전반적인 흐름을 경험할 수 있습니다.
+
+## 🙋‍♀️ Team_Member 🙋‍♀️
+  - 이민종 DB설계, 페이지 설계 , 구현
+
+##ERD
 <details> 
 <summary>
 </summary>
-![image](https://github.com/user-attachments/assets/48afd22b-77f3-45c2-87d8-b146177c130a)
-![image](https://github.com/user-attachments/assets/33ddd40d-c28a-45e7-830e-15e69c642e6c)
-![image](https://github.com/user-attachments/assets/9b4ccf2e-08f5-4dbf-932c-22d5732aaeca)
-![image](https://github.com/user-attachments/assets/5383af78-b2c2-46a1-8d0d-13cd469e40eb)
-![image](https://github.com/user-attachments/assets/a8cb614d-618e-4c6a-8c5f-12d9bdcf0368)
-![image](https://github.com/user-attachments/assets/76d61953-3a2d-4480-a848-c89d3c772a8b)
-![image](https://github.com/user-attachments/assets/056c1048-c89b-4036-80f9-58d0df69baa0)
-![image](https://github.com/user-attachments/assets/ede0e3bb-337f-4a41-a704-b114ec4c7c4a)
-![image](https://github.com/user-attachments/assets/2ee67b13-bfcb-4c80-b422-0859cfad1d97)
-![image](https://github.com/user-attachments/assets/341f3d08-7451-46ab-8ebe-be7dcc6a87d2)
-![image](https://github.com/user-attachments/assets/db45ae00-60d7-4ba7-8be7-fe6ae25b1454)
-![image](https://github.com/user-attachments/assets/3303c4e5-549d-40e0-a697-0315236c3b9f)
+  ![image](https://github.com/user-attachments/assets/266f6154-0a6b-497b-a416-9809484a4a54)
+
 </details>
-
-
-
 
 ## 🛠 페이지 구성   
 
